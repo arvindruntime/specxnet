@@ -1,0 +1,206 @@
+$(document).ready(function() {
+  $('.m-menu__link-badge').click(function() {
+    thisObj = $(this);
+    var url = thisObj.find('.m-menu__link-icon').data('url');
+    ajax.init();
+    ajax.method ='get';
+    ajax.url = url;
+    ajax.ajaxCall(ajax.displayForm);
+    
+  });
+});
+$(function()
+    {
+       $(document).on('click', '.btn-add', function(e)
+       {
+          e.preventDefault();
+          var controlForm = $('#cloneDiv:first'),
+            currentEntry = $(this).parents('.entry:first'),
+            newEntry = $(currentEntry.clone()).appendTo(controlForm);
+            newEntry.find('input').val('');
+          $('#conatctInfoU').removeAttr('required');
+          controlForm.find('.entry:not(:last) .btn-add')
+             .removeClass('btn-add').addClass('btn-remove')
+             .removeClass('btn-success').addClass('btn-danger')
+             .html(' <span><i class="la la-trash-o"></i><span>Delete</span></span>');
+       }).on('click', '.btn-remove', function(e)
+       {
+          e.preventDefault();
+          $(this).parents('.entry:first').remove();
+          return false;
+       });
+    });
+
+// Grid for tab.php script start //
+
+    $(document).ready(function() {
+        $('#myselect3').click(function() {
+            
+                $('#gridView').modal("show");
+                $("#gridView").addClass("show");
+                $('#gridView').show();
+            
+        });
+    });
+
+    $(document).ready(function() {
+        $('#ischeck').click(function() {
+            if($("#ischeck").prop('checked') == true){
+                $("input#saveGrid").prop('disabled', false);
+            } else {
+                $("input#saveGrid").prop('disabled', true);
+            }
+        });
+    });
+
+$(document).on('#myselect5','change', function (){
+        alert(hello);
+        var opval = $("#myselect5").val();
+        if(opval=="thirdoption"){
+            $('#select_existing').modal("show");
+            $("#select_existing").addClass("show");
+            $('#select_existing').show();
+        }
+            else{
+            $('#select_existing').modal("hide");
+            $("#select_existing").removeClass("show");
+            }
+    });
+
+        function getExistCusUsr(){ 
+       var existUsrID=document.getElementById("existUId").value; 
+         $.ajax({
+             type: "POST", 
+             url: "<?php echo base_url().'LeadOpportunity/existCustomer'; ?>",
+             data: 'userId=' + existUsrID,
+             success: function (theResponse) {
+                $('#select_existing').hide();
+                $('#selectExistingCustomer').html(theResponse);
+               
+                 
+             } 
+         });
+     }
+
+
+$(document).ready(function() {
+         $('#myselect3').click(function() {
+             
+                 $('#gridView').modal("show");
+                 $("#gridView").addClass("show");
+                 $('#gridView').show();
+             
+         });
+     });
+ 
+    $(document).ready(function() {
+         $('#ischeck').click(function() {
+             if($("#ischeck").prop('checked') == true){
+                 $("input#saveGrid").prop('disabled', false);
+             } else {
+                 $("input#saveGrid").prop('disabled', true);
+             }
+         });
+   });
+
+/**
+  * Script to display success message after successful insert or import.
+  * @author Sagar Kodalkar
+  */ 
+window.setTimeout(function() {
+    $("#deleteMsg").fadeTo(500, 0).slideUp(500, function(){
+        $(this).remove(); 
+    });
+}, 4000);
+
+<<<<<<< HEAD
+
+
+
+function GridView() {
+    $('#feedInput').on('submit',function(e) {
+        e.preventDefault();
+        var thisObj = $(this);
+        ajax.data = thisObj.serializeArray();
+        ajax.method = thisObj.attr('method');
+        ajax.url = thisObj.attr('action');
+        ajax.ajaxCall(ajax.gridViewData);
+    });
+
+    $("select.gridView").change(function(){
+            var selectedgrid = $(this).children("option:selected").val();
+            ajax.method = 'get';
+            ajax.data = '';
+            ajax.url = window.baseUrl+'user/create/gridview/'+selectedgrid;;
+            ajax.ajaxCall(ajax.gridViewData); 
+        });
+
+    $('#myselect3').on('click',function(e){
+        tbody = $('#feedInput').find('.modal-body').find('tbody');
+        tbody.html('');
+        for(var i=0;i< window.column.length; i++) {
+            if(i != 0) {
+                tbody.append('<tr align="center"><th>'+window.column[i].title+'</th><td><input type="checkbox" name="internal[]" value="'+i+'"></td></tr>');
+            }
+        }
+        tbody.append('<tr align="center"><th><b>Save For Future</b><input id="save-for-future" type="checkbox" name="ischeck" id="ischeck"></th><td><input type="text" name="saveGrid" id="saveGrid" disabled="true" required=""></td></tr>');
+        tbody.append('<tr><th></th><td><input type="submit" value="Submit"></td></tr>');
+    });
+
+    $(document).on('change','#save-for-future',function () {
+        if(this.checked) {
+            $(document).find('#saveGrid').prop('disabled',false);
+        }else {
+            $(document).find('#saveGrid').prop('disabled',true);
+        }
+    });
+
+
+}
+
+function Freez() {
+    $('#freeze').on('change',function() {
+        var column = 0;
+        if(this.checked) {
+            var column = $('.freezeColumn').val();
+            table.addFreezColumn(column);
+            table.updateDataTable();
+        }else {
+            table.addFreezColumn();
+            table.updateDataTable();
+        }
+    }) ;
+}
+
+function UploadTable() {
+
+}
+
+function DownloadTable() {
+
+}
+
+=======
+$(function()
+    {
+       $(document).on('click', '.btn-update', function(e)
+       {
+          e.preventDefault();
+          var controlForm = $('#innerUpdateCont:last'),
+             currentEntry = $(this).parents('.entry:last'),
+             newEntry = $(currentEntry.clone()).appendTo(controlForm);
+             alert("controlForm");
+          newEntry.find('input').val('');
+          controlForm.find('.entry:last .btn-danger')
+             .removeClass('btn-danger').addClass('btn-add')
+             .removeClass('btn-danger').addClass('btn-success')
+             .html('<span><i class="la la-plus"></i><span>Add</span></span>');
+       }).on('click', '.btn-remove', function(e)
+       {
+          e.preventDefault();
+          $(this).parents('.entry:selected').remove();
+          return false;
+       });
+    });
+
+>>>>>>> 79a5023685f08536ce4da1480ac5016a42b84d89

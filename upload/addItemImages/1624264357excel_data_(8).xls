@@ -1,0 +1,68 @@
+<table class="table table-striped- table-bordered table-hover table-checkable" id="bid-analysis" style="user-select: auto;">
+
+                <tbody style="user-select: auto;"><tr style="user-select: auto;">
+
+                    <!-- <th>Items ID</th> -->
+                    <th style="user-select: auto;">Items</th>
+
+                    <th style="user-select: auto;">Item Type</th>
+
+                    <th style="user-select: auto;">ID Code</th>
+
+                    <th style="user-select: auto;">Quantity</th>
+
+                    <th style="user-select: auto;">Fabric Quantity</th>
+
+                    <th style="user-select: auto;">Leather Quantity</th>
+
+                    
+                    <th colspan="7" style="background-color: yellow; text-align: center; user-select: auto;">Optimal Quote</th>
+
+                </tr>
+
+                
+                        <tr style="user-select: auto;">
+
+                            
+                                    <td style="user-select: auto;"></td>
+
+                            
+                                    <td style="user-select: auto;"></td>
+
+                            
+                                    <td style="user-select: auto;"></td>
+
+                            
+                                    <td style="user-select: auto;"></td>
+
+                            
+                                    <td style="user-select: auto;"></td>
+
+                            
+                                    <td style="user-select: auto;"></td>
+
+                            
+                            <td style="font-size: 10px; user-select: auto;">Markup</td>
+
+                            <td style="font-size: 10px; user-select: auto;">Rate in $</td>
+
+                            <td style="font-size: 10px; user-select: auto;">Exchange Rate</td>
+
+                            <td style="font-size: 10px; user-select: auto;">Rate in AED</td>
+
+                            <td style="font-size: 10px; user-select: auto;">Amount</td>
+
+                            <td style="font-size: 10px; user-select: auto;">Supplier Name(s)</td>
+
+                        </tr>
+
+                    
+                    <tr style="user-select: auto;">
+                        
+                                <td style="user-select: auto;">Tables</td>
+
+                        
+                                <td style="user-select: auto;">Beds</td>
+
+                        
+                                <td style="user-select: auto;">

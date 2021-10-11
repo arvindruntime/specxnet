@@ -1,0 +1,52 @@
+.alert-danger-2:not(.m-alert--outline) {
+    color: #fff;
+    background-color: #000000;
+    border-color: #f55f78;
+    padding: 10px;
+}
+
+.alert-danger-2 {
+    color: #fff;
+    background-color: #000000;
+    border-color: #f55f78;
+    padding:10px;
+}
+
+/**
+ * Add freez functionalities 
+*/
+table.table.table-striped-.table-bordered.table-hover.table-checkable.no-footer.dataTable.DTFC_Cloned {
+    margin: 0 !important;
+}
+
+.activeData {
+    height:37px !important;
+    background: linear-gradient(45deg,#5cb75c,#383636,#017514,#185c23,#0f0f0f, #000000);
+    color:#000 !important; 
+    /*position: absolute;*/
+    background-size: 400%;
+    z-index: 1;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity:1;
+    transition: opacity .3s ease-in-out;
+   
+}
+
+/*rfq item image zoom start*/
+.zoom {
+  /*padding: 50px;*/
+  transition: transform .2s;
+  /*width: 200px;*/
+  /*height: 200px;*/
+  /*margin: 0 auto;*/
+}
+
+.zoom:hover {
+  -ms-transform: scale(1.5); /* IE 9 */
+  -webkit-transform: scale(1.5); /* Safari 3-8 */
+  transform: scale(1.5); 
+}
+
+/*rfq item image zoom end*/

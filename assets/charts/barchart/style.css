@@ -1,0 +1,328 @@
+.graph-container {
+  height: 300px;
+  width: 560px;
+  margin: auto;
+  font-family: sans-serif;
+}
+
+.graph {
+  height: 200px;
+  width: 510px;
+  border-bottom: 1px solid gainsboro;
+  position: relative;
+  left: 50px;
+  top: 75px;
+}
+
+.title {
+  position: absolute;
+  font-size: 15px;
+  width: 510px;
+  text-align: center;
+  top: -80px;
+}
+
+.hlabel, .val_label {
+  position: relative;
+  width: 45px;
+  text-align: center;
+  font-size: 8pt;
+  color: #323232;
+}
+
+.vlabel {
+  position: absolute;
+  left: -30px;
+  text-align: center;
+  font-size: 8pt;
+  color: #323232;
+}
+
+.hlabel {
+  top: 205px;
+  float: left;
+  width: 45px;
+  margin-left: 15px;
+  text-align: center;
+}
+
+.val_label {
+  top: -20px;
+}
+
+@keyframes grow1 {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.bar:nth-child(2) .hlabel {
+  top: 40px;
+}
+
+.bar:nth-child(2) {
+  transform-origin: bottom;
+  position: absolute;
+  bottom: 0;
+  left: 15px;
+  background-color: tomato;
+  width: 45px;
+  animation-name: grow1;
+  animation-duration: 2s;
+}
+
+@keyframes grow2 {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.bar:nth-child(3) .hlabel {
+  top: 60px;
+}
+
+.bar:nth-child(3) {
+  transform-origin: bottom;
+  position: absolute;
+  bottom: 0;
+  left: 75px;
+  background-color: gold;
+  width: 45px;
+  animation-name: grow2;
+  animation-duration: 2s;
+}
+
+@keyframes grow3 {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.bar:nth-child(4) .hlabel {
+  top: 100px;
+}
+
+.bar:nth-child(4) {
+  transform-origin: bottom;
+  position: absolute;
+  bottom: 0;
+  left: 135px;
+  background-color: lightseagreen;
+  width: 45px;
+  animation-name: grow3;
+  animation-duration: 2s;
+}
+
+@keyframes grow4 {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.bar:nth-child(5) .hlabel {
+  top: 140px;
+}
+
+.bar:nth-child(5) {
+  transform-origin: bottom;
+  position: absolute;
+  bottom: 0;
+  left: 195px;
+  background-color: lightgreen;
+  width: 45px;
+  animation-name: grow4;
+  animation-duration: 2s;
+}
+
+@keyframes grow5 {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.bar:nth-child(6) .hlabel {
+  top: 40px;
+}
+
+.bar:nth-child(6) {
+  transform-origin: bottom;
+  position: absolute;
+  bottom: 0;
+  left: 255px;
+  background-color: peachpuff;
+  width: 45px;
+  animation-name: grow5;
+  animation-duration: 2s;
+}
+
+@keyframes grow6 {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.bar:nth-child(7) .hlabel {
+  top: 120px;
+}
+
+.bar:nth-child(7) {
+  transform-origin: bottom;
+  position: absolute;
+  bottom: 0;
+  left: 315px;
+  background-color: lightsteelblue;
+  width: 45px;
+  animation-name: grow6;
+  animation-duration: 2s;
+}
+
+@keyframes grow7 {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.bar:nth-child(8) .hlabel {
+  top: 140px;
+}
+
+.bar:nth-child(8) {
+  transform-origin: bottom;
+  position: absolute;
+  bottom: 0;
+  left: 375px;
+  background-color: seagreen;
+  width: 45px;
+  animation-name: grow7;
+  animation-duration: 2s;
+}
+
+@keyframes grow8 {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.bar:nth-child(9) .hlabel {
+  top: 80px;
+}
+
+.bar:nth-child(9) {
+  transform-origin: bottom;
+  position: absolute;
+  bottom: 0;
+  left: 435px;
+  background-color: #e6e6e6;
+  width: 45px;
+  animation-name: grow8;
+  animation-duration: 2s;
+}
+
+@keyframes grow9 {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.bar:nth-child(10) .hlabel {
+  top: 80px;
+}
+
+.bar:nth-child(10) {
+  transform-origin: bottom;
+  position: absolute;
+  bottom: 0;
+  left: 494px;
+  background-color: #e6e6e6;
+  width: 45px;
+  animation-name: grow9;
+  animation-duration: 2s;
+}
+
+@keyframes grow10 {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.bar:nth-child(11) .hlabel {
+  top: 80px;
+}
+
+.bar:nth-child(11) {
+  transform-origin: bottom;
+  position: absolute;
+  bottom: 0;
+  left: 553px;;
+  background-color: #e6e6e6;
+  width: 45px;
+  animation-name: grow10;
+  animation-duration: 2s;
+}
+
+@keyframes grow11 {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.bar:nth-child(12) .hlabel {
+  top: 80px;
+}
+
+.bar:nth-child(12) {
+  transform-origin: bottom;
+  position: absolute;
+  bottom: 0;
+  left: 594px;
+  background-color: #e6e6e6;
+  width: 45px;
+  animation-name: grow11;
+  animation-duration: 2s;
+}
+
+.vlabel:nth-child(1) {
+  bottom: -5px;
+}
+
+.vlabel:nth-child(2) {
+  bottom: 35px;
+}
+
+.vlabel:nth-child(3) {
+  bottom: 75px;
+}
+
+.vlabel:nth-child(4) {
+  bottom: 115px;
+}
+
+.vlabel:nth-child(5) {
+  bottom: 155px;
+}
+
+.vlabel:nth-child(6) {
+  bottom: 195px;
+}

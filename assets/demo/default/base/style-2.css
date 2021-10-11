@@ -1,0 +1,127 @@
+.no-padding
+{
+	padding: 0!important;
+}
+.pad-top-25
+{
+	padding-top: 25px;
+}
+.calendar-color
+{
+	margin: 33px 0px 0px 30px;
+}
+.m-r-0
+{
+	margin-right: 0;
+}
+/*     Tab Pro      */
+@media (min-width:991px) and (max-width: 1024px) {
+	
+	.m-grid.m-grid--hor:not(.m-grid--desktop):not(.m-grid--desktop-and-tablet):not(.m-grid--tablet):not(.m-grid--tablet-and-mobile):not(.m-grid--mobile).m-grid--root
+	{
+		flex: inherit!important;
+	}
+	.m-grid.m-grid--hor:not(.m-grid--desktop):not(.m-grid--desktop-and-tablet):not(.m-grid--tablet):not(.m-grid--tablet-and-mobile):not(.m-grid--mobile).m-grid--root
+	{
+		flex: 0!important;
+	}
+	
+}
+
+@media (max-width: 1024px) {
+	
+	.m-top-50
+	{
+		margin-top: 50px
+	}
+	.d-img-none
+	{
+		display: none;
+	}
+
+}
+/*     Tab Device     */
+@media (max-width: 990px) and (min-width:768px)
+{
+	.calendar-color
+	{
+		margin: 63px 0px 0px 30px;
+	}
+	
+	.m-grid.m-grid--hor:not(.m-grid--desktop):not(.m-grid--desktop-and-tablet):not(.m-grid--tablet):not(.m-grid--tablet-and-mobile):not(.m-grid--mobile).m-grid--root
+	{
+		flex: 0;
+    	margin-top: 50px;
+	}
+	.btn.m-btn--custom
+	{
+		margin-top: 5px;
+	}
+}
+
+@media (max-width: 767px) {
+	
+	.btn.m-btn--custom
+	{
+		margin-top: 5px;
+		margin-left: 0!important;
+	}
+	.calendar-color
+	{
+		margin: 250px 0px 0px 30px;
+	}
+	.mob-no-pad
+	{
+		padding: 0!important;
+	}
+	.btn
+	{
+		margin-top: 5px;
+	}
+	.m-portlet.m-portlet--tabs .m-portlet__head .m-portlet__head-tools .nav-tabs.m-tabs-line>.nav-item.m-tabs__item
+	{
+		margin-bottom: 5px;
+	}
+	.width-auto
+	{
+		width: auto!important;
+	}
+	.mob-m-left-20
+	{
+		margin-left: 20px!important;
+	}
+	.mob-m-top-160
+	{
+		margin-top: 160px!important;
+	}
+	.mob-m-top-80
+	{
+		margin-top: 80px!important;
+	}
+	.mob-cross
+	{
+	margin-top: -48px!important;
+    margin-right: 0!important;
+	}
+	.height-60
+	{
+		height: 60px!important;
+	}
+	.mob-days
+	{
+		padding-left: 15px!important;
+		margin-top: 15px!important;
+	}
+	.mob-top-0
+	{
+		margin-top: 0!important;
+	}
+	.mob-top-pad-50
+	{
+		padding-top: 50px
+	}
+	.btn-brand
+	{
+		margin-top: 5px!important;
+	}
+}
