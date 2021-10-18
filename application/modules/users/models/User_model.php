@@ -1,14 +1,7 @@
 <?php
-
- 
-
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-
-
 Class User_model extends CI_Model {
-
-
 
     protected $tableName = 'users';
 
@@ -40,20 +33,14 @@ Class User_model extends CI_Model {
 
     protected $tableDepartment = 'department';
 
-
-
     function __construct() {
 
         // parent::__construct();
 
-        $this->load->database();
+        //$this->load->database();
 
     }
-
-
-
-
-
+    
     /**
 
      * get Company name
@@ -776,6 +763,29 @@ Class User_model extends CI_Model {
             }
 
             
+
+        } catch(Exception $e) {
+
+            return false;
+
+        }
+
+        
+
+
+
+    } // end : insertUserContact
+
+
+public function insert_data($tblName,$insertFeild) {
+
+        try {
+
+            $id = $this->db->insert($tblName,$insertFeild);
+
+            $id = $this->db->insert_id();
+
+            return $id;
 
         } catch(Exception $e) {
 

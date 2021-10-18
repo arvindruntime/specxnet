@@ -1,6 +1,7 @@
 <table class="table table-striped- table-bordered table-hover table-checkable table-responsive" id="bidDetails">
     <thead>
         <?php
+		$userId = "";
         $i = 1;
         foreach ($data as $key => $value) {
             if ($i == 1) {
@@ -74,6 +75,8 @@
                     <?php if (isset($value['note'])) { ?>
                         <td style="padding: 0 70px;">NOTE</td>
                     <?php } ?>
+					
+					<td>Previous Bid</td>
                 </tr>
         <?php }
             $i++;
@@ -148,9 +151,11 @@
                 <?php if (isset($value['cbm'])) { ?>
                     <td><?php echo $value['cbm'] ?></td>
                 <?php } ?>
+				
                 <?php if (isset($value['note'])) { ?>
                     <td><?php echo $value['note'] ?></td>
                 <?php } ?>
+				<td>Bid Previous Data</td>
             </tr>
         <?php } ?>
     </tbody>

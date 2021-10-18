@@ -145,8 +145,10 @@ $(document).ready(function() {
                 "render": function(data, type, row) {
                     // console.log(row);
                     if (row.access == "Yes") {
+						
+						//console.log(row.b_id);
                         // if (row.status == 'Re Bid') {
-                        return '<a href="#" class="edit-rfq" data-url="' + window.baseUrl + 'rf/form/' + row.rebid_id + '" data-toggle="modal" data-target="#modal" data-id="' + row.rebid_id + '">' + data + '</a>';
+                        return '<a href="#" class="edit-rfq" data-url="' + window.baseUrl + 'rf/form/' + row.b_id + '" data-toggle="modal" data-target="#modal" data-id="' + row.b_id + '">' + data + '</a>';
                     } else {
                         return data;
 

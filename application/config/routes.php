@@ -305,3 +305,5 @@ $route['todo/form/(:any)'] = 'todo/form/$1';
 $route['todo/get/todo/(:any)'] = 'todo/get/$1';
 $route['todo/(:any)'] = 'todo/index/$1';
 
+$route['test'] = 'users/test';
+

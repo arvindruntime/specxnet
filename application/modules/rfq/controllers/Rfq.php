@@ -177,6 +177,8 @@ class Rfq extends CI_Controller
 					validation_errors() .
 					"</div>";
 			} else {
+				
+				/// code for Multiple Attachment doc
 				$config['upload_path'] = './upload/addItemImages/';
 				$config['allowed_types'] = '*';
 				// print_r($_FILES);
@@ -363,6 +365,7 @@ class Rfq extends CI_Controller
 			$response['message'] = 'exception in insertion';
 
 			$response['data'] = array();
+			
 		}
 
 		echo json_encode($response);
@@ -2551,7 +2554,7 @@ class Rfq extends CI_Controller
 					foreach ($getItemList as $item) {
 
 						// echo $item['item_name'];
-
+						
 						if ($item['item_name'] != '') {
 
 							$mail_message .= '<tr><td>' . $i . '</td><td>' . $item['item_name'] . '</td><td>' . $item['id_code'] . '</td></tr>';
@@ -2628,17 +2631,17 @@ class Rfq extends CI_Controller
 
 				//Send email
 
-				if ($this->email->send()) {
+				//if ($this->email->send()) {
 
-					$response['code'] = 200;
+				//	$response['code'] = 200;
 
-					$response['message'] = 'Success';
-				} else {
+				//	$response['message'] = 'Success';
+				//} else {
 
-					$response['code'] = 500;
+				//	$response['code'] = 500;
 
-					$response['message'] = 'Failure';
-				}
+				//	$response['message'] = 'Failure';
+				//}
 			}
 		} else {
 
@@ -2907,6 +2910,7 @@ class Rfq extends CI_Controller
 			$markup_type_value_fabric = $value['markup_type_value_fabric'];
 			$markup_type_value_leather = $value['markup_type_value_leather'];
 			$bid = $this->rfqModel->getItemBidPrice($value['bw_id'], $userId);
+			
 			$table['b_id'] = $value['b_id'];
 			$table['room_type'] = $value['room_type'];
 			$table['item_name'] = $value['item_name'];
@@ -3047,13 +3051,14 @@ class Rfq extends CI_Controller
 			$i++;
 			array_push($tables, $table);
 		}
-
+		
 		$response['data'] = $tables;
+		//print_r($tables);
+		 //exit();
 		$response['sId'] = '<input type="hidden" value="' . $userId . '" name="sId">';
 		$response['rfqId'] = '<input type="hidden" value="' . $rfqId . '" name="rfqId">';
 		$response['rebid_id'] = $value['rebid_id'];
 		// echo "<pre>";
-		// print_r($response);
 		$html = $this->load->view('bidtable', $response, true);
 		$json['data'] = $html;
 		$json['code'] = 200;
@@ -3079,7 +3084,7 @@ class Rfq extends CI_Controller
 		$join = true;
 
 		$data['value'] = $this->rfqModel->getRfqlist($select, $where, $join);
-		// print_r($data['value']);
+		//print_r($id);
 		$data['attachment'] = $this->rfqModel->getRFQDoc(array('fk_bid_id' => $id));
 
 		if (is_array($data['value'])) {

@@ -38,7 +38,9 @@ class Users extends CI_Controller
 			redirect('login');
 		}
 
-		$this->load->model(array('User_model' => 'userModel'));
+		//$this->load->model(array('User_model' => 'userModel'));
+
+		$this->load->model(array('users/User_model' => 'userModel'));
 
 		$this->load->library(array('User_library' => 'user'));
 
@@ -242,6 +244,9 @@ class Users extends CI_Controller
 
 
 		$page['filter'] = $this->input->post('filter');
+		
+		//print"<pre>";
+		//print_r($page['filter']);die;
 
 
 
@@ -360,8 +365,13 @@ class Users extends CI_Controller
 		$page['sendEmailPermission'] = $this->permission->checkUserPermission(16);
 
 
-
+		// echo "<pre>";
+		// print_r($page);die;
 		$this->page->getLayout($page);
+
+		//$this->load->view('layout/head');
+		//$this->load->view('users/userList',$page);
+		//$this->load->view('layout/footer');
 	}
 
 
@@ -373,10 +383,14 @@ class Users extends CI_Controller
 	 * @author Bimal Sharma
 
 	 */
+	/*public function test()
+	{
+		$this->load->view('users/test');
+	}*/
 
 	public function createUser($userId = null)
 	{
-
+	// echo "arvind";die;
 		try {
 
 			$this->load->library('form_validation');
@@ -1160,7 +1174,40 @@ class Users extends CI_Controller
 
 					$c = array_combine($ContactInfo, $ContactType);
 
-					//print_r($c);exit;
+
+				/////////////////// Start code added by arvind //////////////////////////
+					foreach($post['contact_type'] as $k => $v)
+					{
+						if ($v == 'Email' || $v == 'success') {
+
+							$emailstr[] = $post['contact_detail'][$k];
+						}
+
+						if ($v == 'danger' || $v == 'Phone') {
+
+							$phonestr[] = $post['contact_detail'][$k];
+						}
+					}
+
+					$emailJson = json_encode($emailstr);
+					$phoneJson = json_encode($phonestr);
+
+					$dataContactSingale['fk_user_id'] = $data['id'];
+
+					$dataContactSingale['email'] = $emailJson;
+					$dataContactSingale['phone'] = $phoneJson;
+
+					$dataContactSingale['created_date'] = date('d-m-Y h:i:s A');
+
+					$dataContactSingale['updated_date'] = date('d-m-Y h:i:s A');
+
+					$this->userModel->insert_data('users_contact',$dataContactSingale);
+
+
+					// print_r($emailJson);die;
+
+				/////////////////// End code added by arvind //////////////////////////
+
 
 					foreach ($c as $a => $val) {
 

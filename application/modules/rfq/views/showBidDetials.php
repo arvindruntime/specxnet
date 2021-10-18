@@ -39,7 +39,9 @@
                         echo "<p>No Files Uploaded.</p>";
                     } ?>
                     <label for="street_address"><strong>Download Images:</strong></label>
-                    <?php if (!empty($attachment['result'])) {
+                    <?php 
+						//print_r($attachment);
+					if (!empty($attachment['result'])) {
                         foreach ($attachment['result'] as $doc) {
                             if ($doc['type'] == 'imageAttachment') {
                                 $name = $doc['name'];

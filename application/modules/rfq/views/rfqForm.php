@@ -20,7 +20,7 @@
 
                     </li>
 
-                    <li class="nav-item m-tabs__item" style="<?php if (!isset($b_id)) {
+                    <!--<li class="nav-item m-tabs__item" style="<?php if (!isset($b_id)) {
                                                                     echo "display:none";
                                                                 } ?>;">
 
@@ -30,7 +30,7 @@
 
                         </a>
 
-                    </li>
+                    </li>-->
 
                     <li class="nav-item m-tabs__item" style="<?php if (!isset($b_id)) {
                                                                     echo "display:none";
@@ -92,11 +92,13 @@
 
                     <div class="form-group m-form__group row m--margin-top-20">
 
-                        <div class="col-lg-3 col-md-3 col-sm-12 padtop4">
+                        <div class="col-lg-4 col-md-4 col-sm-12 padtop4">
 
                             <label for="street_address">Project Name <span style="color:red">*</span></label>
 
                             <div class="input-group">
+							
+							<?php //print"<pre>";print_r($value); ?>
 
                                 <input type="text" class="form-control m-input" id="project_name" value="<?php echo $value['project_name'] ?? ''; ?>" placeholder="Please Enter Project Name">
 
@@ -122,7 +124,7 @@
 
                         <?php } else { ?>
 
-                            <div class="col-lg-3 col-md-3 col-sm-12 padtop4">
+                            <div class="col-lg-4 col-md-4 col-sm-12 padtop4">
 
                                 <label for="street_address">Customer Company Name <span style="color:red">*</span></label>
 
@@ -131,17 +133,18 @@
                                     <option value="">---Select Company Name---</option>
                                     <?php foreach ($company as $key => $supplierperson) { ?>
 
-                                        <option value="<?php echo $supplierperson['company_id']; ?>" <?php echo (isset($value['supplier_id']) && (in_array($supplierperson['user_id'], explode(',', $value['supplier'])))) ? 'selected' : ''; ?>><?php echo $supplierperson['supplier_people'] . "(" . $supplierperson['company_name'] . ")"; ?></option>
+                                        <option value="<?php echo $supplierperson['company_id']; ?>" ><?php echo $supplierperson['supplier_people'] . "(" . $supplierperson['company_name'] . ")"; ?></option>
 
                                     <?php } ?>
 
                                 </select>
 
                                 <span id="company_alert" style="color:red"></span>
+							
 
                             </div>
 
-                            <div class="col-lg-3 col-md-3 col-sm-12">
+                            <div class="col-lg-4 col-md-4 col-sm-12">
 
                                 <label for="street_address"><span style="color:red;">* </span>Opportunity Title <span style="color:red">*</span></label>
 
@@ -167,7 +170,49 @@
 
                         <div id="getCompanyOpportunity"></div>
 
-                        <div class="col-lg-3 col-md-3 col-sm-12 padtop4">
+                        
+
+
+
+                        <div class="col-lg-4 col-md-4 col-sm-12" style="margin-top: 27px;">
+
+                            <label for="street_address">Internal Company Name <span style="color:red">*</span></label>
+
+                            <select class="form-control" id="internal_company_id" style="height: 30px !important;" required>
+
+                                <option value="">---Select Internal Company Name---</option>
+
+                                <?php foreach ($internalcompany as $key => $compValue) { ?>
+
+                                    <option value="<?php echo $compValue['company_id']; ?>" <?php echo (isset($value['internal_company_id']) && $value['internal_company_id'] == $compValue['company_id']) ? 'selected' : ''; ?>><?php echo $compValue['company_name']; ?></option>
+
+                                <?php } ?>
+
+                            </select>
+
+                            <span id="internal_company_alert" style="color:red"></span>
+
+                        </div>
+
+
+
+                        <div class="col-lg-4 col-md-4 col-sm-12" style="margin-top: 27px;">
+
+                            <label for="street_address">Supplier Company Name</label>
+
+                            <select class="form-control select2" id="supplier_id" name="supplier_id[]" multiple style="height: 80px !important; width: 280px;" required>
+
+                                <?php foreach ($supplier as $key => $supplierperson) { ?>
+
+                                    <option value="<?php echo $supplierperson['user_id']; ?>" <?php echo (isset($value['supplier_id']) && (in_array($supplierperson['user_id'], explode(',', $value['supplier'])))) ? 'selected' : ''; ?>><?php echo $supplierperson['supplier_people'] . "(" . $supplierperson['company_name'] . ")"; ?></option>
+
+                                <?php } ?>
+
+                            </select>
+
+                        </div>
+						
+						<div class="col-lg-4 col-md-4 col-sm-12" style="margin-top: 27px;">
 
                             <label for="street_address"><span style="color:red;">* </span>Submission Deadline <span style="color:red">*</span></label>
 
@@ -193,79 +238,50 @@
 
 
 
-                        <div class="col-lg-3 col-md-3 col-sm-12" style="margin-top: 27px;">
-
-                            <label for="street_address">Internal Company Name <span style="color:red">*</span></label>
-
-                            <select class="form-control" id="internal_company_id" style="height: 30px !important" required>
-
-                                <option value="">---Select Internal Company Name---</option>
-
-                                <?php foreach ($internalcompany as $key => $compValue) { ?>
-
-                                    <option value="<?php echo $compValue['company_id']; ?>" <?php echo (isset($value['internal_company_id']) && $value['internal_company_id'] == $compValue['company_id']) ? 'selected' : ''; ?>><?php echo $compValue['company_name']; ?></option>
-
-                                <?php } ?>
-
-                            </select>
-
-                            <span id="internal_company_alert" style="color:red"></span>
-
-                        </div>
+                        
 
 
 
-                        <div class="col-lg-3 col-md-3 col-sm-12" style="margin-top: 27px;">
-
-                            <label for="street_address">Supplier Company Name</label>
-
-                            <select class="form-control select2" id="supplier_id" name="supplier_id[]" multiple style="height: 80px !important; width: 100%" required>
-
-                                <?php foreach ($supplier as $key => $supplierperson) { ?>
-
-                                    <option value="<?php echo $supplierperson['user_id']; ?>" <?php echo (isset($value['supplier_id']) && (in_array($supplierperson['user_id'], explode(',', $value['supplier'])))) ? 'selected' : ''; ?>><?php echo $supplierperson['supplier_people'] . "(" . $supplierperson['company_name'] . ")"; ?></option>
-
-                                <?php } ?>
-
-                            </select>
-
-                        </div>
-
-
-
-                        <div class="col-lg-6 col-md-6 col-sm-12" style="margin-top: 27px;">
-
-                            <label for="street_address">Multiple Attachment doc</label>
-                            <?php if (!empty($attachment['result'])) {
-                                foreach ($attachment['result'] as $doc) {
-                                    $id = $doc['id'];
-                                    $name = $doc['name'];
-                                    if ($doc['type'] == 'attachment') {
-                                        $file_url = "upload/addItemImages/" . $doc['name']; ?>
-                                        <p id="<?php echo $id; ?>"><a href='<?php echo $file_url; ?>' target='_blank'><?php echo $name; ?></a><a type='button' onclick='DocDelete(<?php echo $id; ?>,"<?php echo $name; ?>")'> <i class="fa fa-trash" aria-hidden="true"></i></a></p>
-                            <?php  }
-                                }
-                            } ?>
-                            <div><input type="file" id="attachment_doc" name="attachment" multiple="true"></div>
-
-                        </div>
-
-
-
-                        <div class="col-lg-6 col-md-6 col-sm-12" style="margin-top: 27px;">
+                        <div class="col-lg-4 col-md-4 col-sm-12" style="margin-top: 27px;">
 
                             <label for="street_address">Multiple Attachment Image</label>
                             <?php if (!empty($attachment['result'])) {
+								
+								
+								$i = 1;
                                 foreach ($attachment['result'] as $doc) {
                                     $id = $doc['id'];
                                     $name = $doc['name'];
-                                    if ($doc['type'] == 'attachment') {
+									
+                                    if ($doc['type'] == 'imageAttachment') {
                                         $file_url = "upload/addItemImages/" . $doc['name']; ?>
-                                        <p id="<?php echo $id; ?>"><a href='<?php echo $file_url; ?>' target='_blank'><?php echo $name; ?></a><a type='button' onclick='DocDelete(<?php echo $id; ?>,"<?php echo $name; ?>")'> <i class="fa fa-trash" aria-hidden="true"></i></a></p>
+                                        <p id="<?php echo $id; ?>"><a href='<?php echo $file_url; ?>' target='_blank'><?php echo $name; ?></a><a type='button' onclick='DocDelete(<?php echo $id; ?>,"<?php echo 'Doc',$i; ?>")'> <i class="fa fa-trash" aria-hidden="true"></i></a></p>
                             <?php  }
+							$i = $i+1;
                                 }
                             } ?>
-                            <Div><input type="file" id="attachment_image" name="attachment_image" multiple="true"></Div>
+                            <Div><input type="file" id="attachment_image" name="imageAttachment" multiple="true"></Div>
+
+                        </div>
+						
+						<div class="col-lg-4 col-md-4 col-sm-12" style="margin-top: 27px;">
+
+                            <label for="street_address">Multiple Attachment doc</label>
+                            <?php if (!empty($attachment['result'])) {
+								$i = 1;
+                                foreach ($attachment['result'] as $doc) {
+                                    $id = $doc['id'];
+                                    $name = $doc['name'];
+									
+									$name = 'Doc'.$i;
+                                    if ($doc['type'] == 'attachment') {
+                                        $file_url = "upload/addItemImages/" . $doc['name']; ?>
+                                        <p id="<?php echo $id; ?>"><a href='<?php echo $file_url; ?>' target='_blank'><?php echo $name; ?></a><a type='button' onclick='DocDelete(<?php echo $id; ?>,"<?php echo 'Doc',$i; ?>")'> <i class="fa fa-trash" aria-hidden="true"></i></a></p>
+                            <?php  }
+							$i = $i++;
+                                }
+                            } ?>
+                            <div><input type="file" id="attachment_doc" name="attachment" multiple="true"></div>
 
                         </div>
 
@@ -798,3 +814,30 @@
         </div>
 
     </div>
+	
+	<script>
+
+//$value['supplier']
+//alert(selectedValuesTest);
+$(document).ready(function() {
+	//var selectedValuesTest = [47,49];
+	
+	///// code for  select multipale Customer Company Name
+  $("#company_id").select2({
+    multiple: true,
+  });
+ // $("#company_id").val(selectedValuesTest);
+  
+  //$('#company_id').val(selectedValuesTest).trigger('change');
+  
+  
+  ///// code for  select multipale Supplier Company Name
+  var selectedValuesTest = [<?php echo $value['supplier']?>];
+  
+  $("#supplier_id").select2({
+    multiple: true,
+  });
+  $('#supplier_id').val(selectedValuesTest).trigger('change');
+  
+});
+</script>
