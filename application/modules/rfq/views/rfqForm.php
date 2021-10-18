@@ -32,9 +32,11 @@
 
                     </li>-->
 
-                    <li class="nav-item m-tabs__item" style="<?php if (!isset($b_id)) {
+                    <li class="nav-item m-tabs__item">
+
+                        <!-- style="<?php if (!isset($b_id)) {
                                                                     echo "display:none";
-                                                                } ?>;">
+                                                                } ?>;" -->
 
                         <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_portlet_base_demo_17_tab_content" role="tab" aria-selected="false">
 
@@ -44,9 +46,7 @@
 
                     </li>
 
-                    <li class="nav-item m-tabs__item" style="<?php if (!isset($b_id)) {
-                                                                    echo "display:none";
-                                                                } ?>;">
+                    <li class="nav-item m-tabs__item">
 
                         <a class="nav-link m-tabs__link" data-toggle="tab" onclick="get_preview();" href="#m_portlet_base_demo_18_tab_content" role="tab" aria-selected="true">
 
@@ -56,9 +56,7 @@
 
                     </li>
 
-                    <li class="nav-item m-tabs__item" style="<?php if (!isset($b_id)) {
-                                                                    echo "display:none";
-                                                                } ?>;">
+                    <li class="nav-item m-tabs__item">
 
                         <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_portlet_base_demo_19_tab_content" role="tab" aria-selected="true">
 
@@ -128,7 +126,7 @@
 
                                 <label for="street_address">Customer Company Name <span style="color:red">*</span></label>
 
-                                <select class="form-control" id="company_id" name="company_name[]" multiple style="height: 80px !important; width: 100%" required>
+                                <select class="form-control my-name" id="company_id" name="company_name[]" multiple style="height: 80px !important; width: 100%" required>
 
                                     <option value="">---Select Company Name---</option>
                                     <?php foreach ($company as $key => $supplierperson) { ?>
@@ -325,9 +323,12 @@
 
                             <?php } ?>
                             <?php if (isset($b_id)) { ?>
-                                <button type="button" id="save" class="btn btn-outline-success m-btn m-btn--custom" style="font-family: sans-serif, Arial;">Save and Send Email</button>
+                                <button type="button" id="save" class="btn btn-outline-success m-btn m-btn--custom" style="font-family: sans-serif, Arial;">Update and Send Email</button>
                             <?php } else { ?>
                                 <button type="button" id="save" class="btn btn-outline-success m-btn m-btn--custom" style="font-family: sans-serif, Arial;">Save</button>
+
+                                <button type="button" id="save" class="btn btn-outline-success m-btn m-btn--custom" style="font-family: sans-serif, Arial;">Save and Send Email</button>
+
                             <?php } ?>
                             <a type="button" href="<?php echo base_url() . 'upload/sampleRfqItemList.xlsx' ?>" class="btn btn-default m-btn m-btn--custom">Download Sample Excel</a>
 
@@ -814,25 +815,26 @@
         </div>
 
     </div>
-	
-	<script>
+
+    <script>
 
 //$value['supplier']
 //alert(selectedValuesTest);
+// alert('test');
 $(document).ready(function() {
-	//var selectedValuesTest = [47,49];
-	
-	///// code for  select multipale Customer Company Name
+    //alert('test');
+
+    var selectedValuesTest = [<?php echo isset($value['company_id']) ? $value['company_id'] : ''; ?>];
+    
+    ///// code for  select multipale Customer Company Name
   $("#company_id").select2({
     multiple: true,
-  });
- // $("#company_id").val(selectedValuesTest);
-  
-  //$('#company_id').val(selectedValuesTest).trigger('change');
+  });  
+  $('#company_id').val(selectedValuesTest).trigger('change');
   
   
   ///// code for  select multipale Supplier Company Name
-  var selectedValuesTest = [<?php echo $value['supplier']?>];
+  var selectedValuesTest = [<?php echo isset($value['supplier']) ? $value['supplier'] : ''; ?>];
   
   $("#supplier_id").select2({
     multiple: true,
@@ -841,3 +843,4 @@ $(document).ready(function() {
   
 });
 </script>
+	

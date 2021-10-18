@@ -424,8 +424,6 @@ class Rfq extends CI_Controller
 	public function displayForm($id = null, $pw_id = null)
 	{
 
-
-
 		try {
 
 

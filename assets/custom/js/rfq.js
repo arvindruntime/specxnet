@@ -3464,6 +3464,7 @@ function reBidStatus(id, status) {
         window.location.href = window.baseUrl + 'rfq/changeRebidStatus/' + id + '/' + status;
     }
 }
+
 // function rebiding(id) {
 //     //debugger;
 //     r = confirm("Are you sure?");
