@@ -474,6 +474,7 @@ $(document).on('click', '#saveRFQ', function(e) {
     var approval_deadline = $("#m_datepicker_3_3modal").val();
     var internal_company_id = $("#internal_company_id").val();
     var project_name = $("#project_name").val();
+    var company_id = $("#company_id").val();
 
 
     var radioValue = $("input[name='markuptypeCheck']:checked").val();
@@ -516,6 +517,7 @@ $(document).on('click', '#saveRFQ', function(e) {
 
     formData.append('fk_b_id', fk_b_id);
     formData.append('supplier_id', supplier_id);
+
     formData.append('markup_type', radioValue);
     formData.append('markup_type_value_fabric', markup_type_value_fabric);
     formData.append('markup_type_value_ex_factory', markup_type_value_ex_factory);
@@ -526,7 +528,7 @@ $(document).on('click', '#saveRFQ', function(e) {
 
     // formData.append('internalCompany', internal_company_id);
 
-    // formData.append('company', company_id);
+    formData.append('company', company_id);
 
     formData.append('projectName', project_name);
     // formData.append('status', 'Processing');
@@ -583,6 +585,285 @@ $(document).on('click', '#saveRFQ', function(e) {
 
 
 $(document).on('click', '#save', function(e) {
+    $('#addModal').scrollTop(0);
+
+    var fk_b_id = $("#fk_b_id").val();
+
+    var approval_deadline = $("#m_datepicker_3_3modal").val();
+
+    var lead_opportunity_id = $("#lead_opportunity_id").val();
+
+    var supplier_id = $("#supplier_id").val();
+
+    var notes = $("#notes").val();
+
+    // alert(supplier_id.length);
+
+
+    if (!fk_b_id) {
+
+        //added by shruthi - add rfq///
+        var lead_opportunity_id = $("#lead_opportunity_id").val();
+
+        var internal_company_id = $("#internal_company_id").val();
+
+        var project_name = $("#project_name").val();
+
+        var company_id = $("#company_id").val();
+
+        var approval_deadline = $("#m_datepicker_3_3modal").val();
+
+        var supplier_id = $("#supplier_id").val();
+
+        var notes = $("#notes").val();
+
+
+
+        var formData = new FormData();
+
+
+
+        for (var i = 0; i < $('.modal-content').find('#attachment_doc')[0].files.length; i++) {
+
+            attachement = $('.modal-content').find('#attachment_doc')[0].files[i];
+
+            formData.append('attachment[]', attachement);
+
+        }
+
+        for (var i = 0; i < $('.modal-content').find('#attachment_image')[0].files.length; i++) {
+
+            imageAttachement = $('.modal-content').find('#attachment_image')[0].files[i];
+
+            formData.append('imageAttachment[]', imageAttachement);
+
+        }
+
+
+
+        var p_id = $("#fk_b_id").val();
+
+        //var dataString = 'notes=' + notes + '&approval_deadline=' + approval_deadline + '&lead_opportunity_id=' + lead_opportunity_id + '&supplier_id=' + supplier_id + '&internalCompany=' + internalCompany + '&company=' + company + '&projectName=' + projectName + '&attachement=' + attachement + '&imageAttachement=' + imageAttachement;
+
+        if (p_id) {
+
+            $("#showUL").find('li').css("display", "block");
+
+            $("#checkWorkshhet").prop("checked", true);
+
+            $("#checkWorkshhet").attr("disabled", true);
+
+        } else
+
+        if (project_name == '') {
+
+            $('#project_name_alert').html('<b>This field is required.</b>');
+
+            $("#checkWorkshhet").prop("checked", false);
+
+            return false;
+
+        } else
+
+        if (company_id == '') {
+
+            $('#company_alert').html('<b>This field is required.</b>');
+
+            $("#checkWorkshhet").prop("checked", false);
+
+            return false;
+
+        } else
+
+        if (lead_opportunity_id == '') {
+
+            $('#lead_id_alert').html('<b>This field is required.</b>');
+
+            $("#checkWorkshhet").prop("checked", false);
+
+            return false;
+
+        } else
+
+        if (approval_deadline == '') {
+
+            $('#deadline_alert').html('<b>This field is required.</b>');
+
+            $("#checkWorkshhet").prop("checked", false);
+
+            return false;
+
+        } else
+
+        if (internal_company_id == '') {
+
+            $('#internal_company_alert').html('<b>This field is required.</b>');
+
+            $("#checkWorkshhet").prop("checked", false);
+
+            return false;
+
+        } else {
+
+
+
+            formData.append('notes', notes);
+
+            formData.append('approval_deadline', approval_deadline);
+
+            formData.append('lead_opportunity_id', lead_opportunity_id);
+
+            formData.append('supplier_id', supplier_id);
+
+            formData.append('internalCompany', internal_company_id);
+
+            formData.append('company', company_id);
+
+            formData.append('projectName', project_name);
+            formData.append('status', 'Processing');
+
+            $.ajax({
+
+                type: "POST",
+
+                url: window.baseUrl + "rfq/addRfq",
+
+                data: formData,
+
+                dataType: "html",
+
+                processData: false,
+
+                contentType: false,
+
+                success: function(data) {
+
+                    var response = JSON.parse(data);
+
+                    if (response.code == 200) {
+
+                        $('#lead_id_alert').html('');
+
+                        $('#deadline_alert').html('');
+
+                        $("#showUL").find('li').css("display", "block");
+
+                        $("#checkWorkshhet").attr("disabled", true);
+
+                        var msg = "<div class='alert alert-success'><strong>Success!</strong> RFQ Added Successfully</div>";
+
+                        $('#fk_b_id').val(response.data);
+
+                        $('#add_import_id').val(response.data);
+                        // var myDiv = document.getElementById('validation_errors_rfq');
+                        $('#validation_errors_rfq').html(msg);
+
+                        $('#pw_id').val(response.itemId);
+
+                        CKEDITOR.replace('format_header');
+
+                        CKEDITOR.replace('format_footer');
+
+                    } else {
+
+                        $('#validation_errors_rfq').html(response.message);
+
+                        $("#showUL").find('li').css("display", "block");
+
+                        $("#checkWorkshhet").attr("disabled", false);
+
+                    }
+
+
+
+                },
+
+                error: function() { alert("Error posting feed."); }
+
+            });
+
+        }
+        ///update and send//
+
+    } else if (!lead_opportunity_id) {
+
+        // alert("Please select a Lead Opportunity!! ");
+
+        msg = "<div class='alert alert-success'><strong>Error!</strong> Please select a Lead Opportunity!!</div>";
+
+        $('#validation_errors_rfq').html(msg);
+
+    } else if (supplier_id.length == 0) {
+
+        // alert("Please select the Supplier!! ");
+
+        msg = "<div class='alert alert-success'><strong>Error!</strong> Please select the Supplier!!</div>";
+
+        $('#validation_errors_rfq').html(msg);
+
+    } else {
+
+        datastring = { 'fk_b_id': fk_b_id, 'supplier_id': supplier_id, 'approval_deadline': approval_deadline, 'notes': notes };
+
+        check = confirm("Are you sure, you want to sent mail status ?");
+
+        if (check) {
+
+            $.ajax({
+
+                type: "POST",
+
+                url: window.baseUrl + "rfq/sent/mail",
+
+                data: datastring,
+
+                dataType: "html",
+
+                success: function(data) {
+
+                    console.log(data);
+
+                    console.log(data['message']);
+
+                    if (data['message'] == 'Success') {
+
+                        alert("Mail Successfully Sent");
+
+                        msg = "<div class='alert alert-success'><strong>Success!</strong> Mail Successfully Sent</div>";
+
+                        $('#validation_errors_rfq').html(msg);
+
+                    }
+
+                    /* else
+
+                     {$('#validation_errors_rfq').html("somthing went wrong. Please sent mail again");}*/
+
+                   // window.location.reload();
+
+                },
+
+                error: function() { alert("Error posting feed."); }
+
+            });
+
+        } else {
+
+            return false;
+
+        }
+
+    }
+
+});
+
+
+
+
+////////////////////  code added by arvind on 19-10-2021 /////////////////////
+
+
+$(document).on('click', '#save_send_email', function(e) {
     $('#addModal').scrollTop(0);
 
 
@@ -757,6 +1038,11 @@ $(document).on('click', '#save', function(e) {
 
                         $('#fk_b_id').val(response.data);
 
+                        var fk_b_id = response.data;
+
+                        //alert(fk_b_id);
+                        //fk_b_id =last_insert_id;
+
                         $('#add_import_id').val(response.data);
                         // var myDiv = document.getElementById('validation_errors_rfq');
                         $('#validation_errors_rfq').html(msg);
@@ -767,44 +1053,8 @@ $(document).on('click', '#save', function(e) {
 
                         CKEDITOR.replace('format_footer');
 
-                    } else {
 
-                        $('#validation_errors_rfq').html(response.message);
-
-                        $("#showUL").find('li').css("display", "block");
-
-                        $("#checkWorkshhet").attr("disabled", false);
-
-                    }
-
-
-
-                },
-
-                error: function() { alert("Error posting feed."); }
-
-            });
-
-        }
-        ///update and send//
-
-    } else if (!lead_opportunity_id) {
-
-        // alert("Please select a Lead Opportunity!! ");
-
-        msg = "<div class='alert alert-success'><strong>Error!</strong> Please select a Lead Opportunity!!</div>";
-
-        $('#validation_errors_rfq').html(msg);
-
-    } else if (supplier_id.length == 0) {
-
-        // alert("Please select the Supplier!! ");
-
-        msg = "<div class='alert alert-success'><strong>Error!</strong> Please select the Supplier!!</div>";
-
-        $('#validation_errors_rfq').html(msg);
-
-    } else {
+        /// Added code by arvind on 19-10-2021
 
         datastring = { 'fk_b_id': fk_b_id, 'supplier_id': supplier_id, 'approval_deadline': approval_deadline, 'notes': notes };
 
@@ -842,7 +1092,7 @@ $(document).on('click', '#save', function(e) {
 
                      {$('#validation_errors_rfq').html("somthing went wrong. Please sent mail again");}*/
 
-                    window.location.reload();
+                    //window.location.reload();
 
                 },
 
@@ -855,10 +1105,56 @@ $(document).on('click', '#save', function(e) {
             return false;
 
         }
+        /// Added code end by arvind on 19-10-2021 
+
+                    } else {
+
+                        $('#validation_errors_rfq').html(response.message);
+
+                        $("#showUL").find('li').css("display", "block");
+
+                        $("#checkWorkshhet").attr("disabled", false);
+
+                    }
+
+
+
+                },
+
+                error: function() { alert("Error posting feed."); }
+
+            });
+
+
+
+        }
+        ///update and send// 
+
+    } else if (!lead_opportunity_id) {
+
+        // alert("Please select a Lead Opportunity!! ");
+
+        msg = "<div class='alert alert-success'><strong>Error!</strong> Please select a Lead Opportunity!!</div>";
+
+        $('#validation_errors_rfq').html(msg);
+
+    } else if (supplier_id.length == 0) {
+
+        // alert("Please select the Supplier!! ");
+
+        msg = "<div class='alert alert-success'><strong>Error!</strong> Please select the Supplier!!</div>";
+
+        $('#validation_errors_rfq').html(msg);
+
+    } else {
+
+        /// send mail code was there arvind replaced on top on 19-10-2021
 
     }
 
 });
+
+/// End code added by arvind on 19-10-2021 //////////////////
 
 
 
@@ -2333,6 +2629,39 @@ function get_preview(b_id) {
 
 };
 
+///// Start code added by arvind on 20-10-2021 /////////
+
+function get_item_list(b_id) {
+
+    var fk_b_id = $('#fk_b_id').val();
+
+    var dataString = 'b_id=' + fk_b_id;
+
+    $.ajax({
+
+        url: "rfq/get_item_list/" + fk_b_id,
+
+        method: "POST",
+
+        data: dataString,
+
+        contentType: false,
+
+        cache: false,
+
+        processData: false,
+
+        success: function(data) {
+
+            $('#RFQItemList').html(data);
+
+        }
+
+    });
+
+};
+
+/// End code added by arvind on 20-10-2021 //////
 
 
 function get_Worksheet() {
@@ -3010,7 +3339,7 @@ function excelUpload() {
         },
 
         success: function(data) {
-            debugger
+            //debugger
             //$('.excel-upload-response').html('Excel file has been uploaded');
            // var newData = JSON.parse(data);
 
@@ -3106,8 +3435,157 @@ function exportTableToExcelAnalysis(rfq_id) {
 
 }
 
+$(document).on("click","#WorkSheetBtn",function(){
+	
+	var form_data = new FormData();
+	//var formdata = $('form.item-list').serialize();
+	
+    var room_type = $("#add_room_type").val();
+
+    var add_id_code = $("#add_id_code").val();
+
+    var add_item_type = $("#add_item_name").val();
+
+    var add_item_name = $("#add_item_type").val();
+
+    var add_width = $("#add_width").val();
+
+    var depth = $("#add_depth").val();
+
+    var height = $("#add_material").val();
+
+    var add_short_height = $("#add_short_height").val();
+
+    var add_technical_description = $("#add_technical_description").val();
+
+    var add_quantity = $("#add_quantity").val();
+
+    var add_fabric_quantity = $("#add_fabric_quantity").val();
+
+    var add_leather_quantity = $("#add_leather_quantity").val();
+
+    var cbm = $("#add_percentage_units").val();
+
+    var note = $("#add_note").val();
+
+    var fk_b_id = $("#fk_b_id").val();
+
+    var bw_id = $("#bw_id").val();
 
 
+
+    var rfq_id = $('#fk_b_id').val();
+
+    form_data.append("photo", document.getElementById('add_photo').files[0]);
+
+    form_data.append("room_type", room_type);
+
+    form_data.append("id_code", add_id_code);
+
+    form_data.append("item_type", add_item_type);
+
+    form_data.append("item_name", add_item_name);
+
+    form_data.append("width", add_width);
+
+    form_data.append("depth", depth);
+
+    form_data.append("height", height);
+
+    form_data.append("short_height", add_short_height);
+
+    form_data.append("technical_description", add_technical_description);
+
+    form_data.append("quantity", add_quantity);
+
+    form_data.append("fabric_quantity", add_fabric_quantity);
+
+    form_data.append("leather_quantity", add_leather_quantity);
+
+    form_data.append("cbm", cbm);
+
+    form_data.append("note", note);
+
+    form_data.append("fk_b_id", fk_b_id);
+
+    form_data.append("bw_id", bw_id);
+	
+	
+	
+	$.ajax({
+
+        url: "rfq/create/worksheet",
+
+        method: "POST",
+
+        data: form_data,
+
+        contentType: false,
+
+        cache: false,
+
+        processData: false,
+
+        // beforeSend: function () {
+
+        //         $('#importExcel').html("Excel Uploading...");
+
+        //         $('#importExcel').prop('disabled',true);
+
+        // },
+
+        success: function(data) {
+
+            console.log(data);
+
+            var newData = JSON.parse(data);
+
+            $('#itemSuccessMessage').html(newData.message);
+
+            $('#itemSuccessMessageUpdate').html(newData.message);
+
+            if (newData.saveNew == 'saveNew') {
+
+                $("#add_room_type").val('');
+
+                $("#add_id_code").val('');
+
+                $("#add_item_type").val('');
+
+                $("#add_item_name").val('');
+
+                $("#add_width").val('');
+
+                $("#depth").val('');
+
+                $("#add_material").val('');
+
+                $("#add_short_height").val('');
+
+                $("#add_technical_description").val('');
+
+                $("#add_quantity").val('');
+
+                $("#add_fabric_quantity").val('');
+
+                $("#add_leather_quantity").val('');
+
+                $("#add_percentage_units").val('');
+
+                $("#add_note").val('');
+
+            }
+
+            // if (newData.code == 200) {
+
+            //     window.location.reload();
+
+            // }
+
+        }
+
+    });
+});
 function AddUpdateItem() {
 
     // var name = document.getElementById("add_photo").files[0].name;
@@ -3476,3 +3954,5 @@ function reBidStatus(id, status) {
 //     }
 
 // }
+
+//ALTER TABLE `bid` ADD `company_id` VARCHAR(50) NULL AFTER `project_name`;

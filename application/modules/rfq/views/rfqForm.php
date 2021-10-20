@@ -1,4 +1,4 @@
-<div class="modal-body">
+<div class="modal-body" id="dCalc">
 
     <div class="m-portlet m-portlet--tabs" id="showUL">
 
@@ -20,23 +20,23 @@
 
                     </li>
 
-                    <!--<li class="nav-item m-tabs__item" style="<?php if (!isset($b_id)) {
+                    <li class="nav-item m-tabs__item" style="<?php if (!isset($b_id)) {
                                                                     echo "display:none";
                                                                 } ?>;">
 
-                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_portlet_base_demo_16_tab_content" role="tab" aria-selected="false">
+                        <a class="nav-link m-tabs__link" data-toggle="tab" onclick="get_item_list();" href="#m_portlet_base_demo_16_tab_content" role="tab" aria-selected="true">
 
                             Worksheet
 
                         </a>
 
-                    </li>-->
+                    </li>
 
-                    <li class="nav-item m-tabs__item">
-
-                        <!-- style="<?php if (!isset($b_id)) {
+                    <li class="nav-item m-tabs__item" style="<?php if (!isset($b_id)) {
                                                                     echo "display:none";
-                                                                } ?>;" -->
+                                                                } ?>;">
+
+                          
 
                         <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_portlet_base_demo_17_tab_content" role="tab" aria-selected="false">
 
@@ -46,7 +46,9 @@
 
                     </li>
 
-                    <li class="nav-item m-tabs__item">
+                    <li class="nav-item m-tabs__item" style="<?php if (!isset($b_id)) {
+                                                                    echo "display:none";
+                                                                } ?>;">
 
                         <a class="nav-link m-tabs__link" data-toggle="tab" onclick="get_preview();" href="#m_portlet_base_demo_18_tab_content" role="tab" aria-selected="true">
 
@@ -56,7 +58,9 @@
 
                     </li>
 
-                    <li class="nav-item m-tabs__item">
+                    <li class="nav-item m-tabs__item" style="<?php if (!isset($b_id)) {
+                                                                    echo "display:none";
+                                                                } ?>;">
 
                         <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_portlet_base_demo_19_tab_content" role="tab" aria-selected="true">
 
@@ -108,7 +112,7 @@
 
 
 
-                        <?php if (isset($value['title']) && $value['title'] != '') { ?>
+                        <!-- <?php //if (isset($value['title']) && $value['title'] != '') { ?>
 
                             <div class="col-lg-5 col-md-5 col-sm-12">
 
@@ -120,7 +124,8 @@
 
                             <input type="hidden" name="company_name" id="company_name" value="<?php echo isset($value['company_id']) ? $value['company_id'] : ''; ?>">
 
-                        <?php } else { ?>
+                        <?php //} else { ?> -->
+
 
                             <div class="col-lg-4 col-md-4 col-sm-12 padtop4">
 
@@ -146,13 +151,16 @@
 
                                 <label for="street_address"><span style="color:red;">* </span>Opportunity Title <span style="color:red">*</span></label>
 
+
                                 <select class="form-control" id="lead_opportunity_id" style="height: 30px !important" required>
 
                                     <option value="">---Select Lead Opportunity---</option>
 
-                                    <?php foreach ($leadOpp as $key => $leadOpp) { ?>
+                                    <?php foreach ($leadOpp as $key => $Opp) { 
+                                        //echo $Opp['lead_opportunity_id'];
+                                        ?>
 
-                                        <option value="<?php echo $leadOpp['lead_opportunity_id']; ?>" <?php echo (isset($value['fk_lead_opportunity_id']) && $value['fk_lead_opportunity_id'] == $leadOpp['lead_opportunity_id']) ? 'selected' : ''; ?>><?php echo $leadOpp['opportunity_title']; ?></option>
+                                        <option value="<?php echo $Opp['lead_opportunity_id']; ?>" <?php echo (isset($value['fk_lead_opportunity_id']) && $value['fk_lead_opportunity_id'] == $Opp['lead_opportunity_id']) ? 'selected' : ''; ?>><?php echo $Opp['opportunity_title']; ?></option>
 
                                     <?php } ?>
 
@@ -162,7 +170,7 @@
 
                             </div>
 
-                        <?php } ?>
+                        <?php //} ?>
 
 
 
@@ -243,6 +251,9 @@
                         <div class="col-lg-4 col-md-4 col-sm-12" style="margin-top: 27px;">
 
                             <label for="street_address">Multiple Attachment Image</label>
+							
+							<Div><input type="file" id="attachment_image" name="imageAttachment" multiple="true"></Div>
+							<br>
                             <?php if (!empty($attachment['result'])) {
 								
 								
@@ -258,13 +269,16 @@
 							$i = $i+1;
                                 }
                             } ?>
-                            <Div><input type="file" id="attachment_image" name="imageAttachment" multiple="true"></Div>
+                            
 
                         </div>
 						
 						<div class="col-lg-4 col-md-4 col-sm-12" style="margin-top: 27px;">
 
                             <label for="street_address">Multiple Attachment doc</label>
+							
+							<div><input type="file" id="attachment_doc" name="attachment" multiple="true"></div>
+							<br>
                             <?php if (!empty($attachment['result'])) {
 								$i = 1;
                                 foreach ($attachment['result'] as $doc) {
@@ -279,7 +293,7 @@
 							$i = $i++;
                                 }
                             } ?>
-                            <div><input type="file" id="attachment_doc" name="attachment" multiple="true"></div>
+                            
 
                         </div>
 
@@ -319,7 +333,7 @@
 
                             <?php } else { ?>
 
-                                <button class="btn btn-outline-primary m-btn m-btn--custom" id="checkWorkshhetRFQ">Draft RFQ</button>
+                                <!--<button class="btn btn-outline-primary m-btn m-btn--custom" id="checkWorkshhetRFQ">Draft RFQ</button>-->
 
                             <?php } ?>
                             <?php if (isset($b_id)) { ?>
@@ -327,7 +341,7 @@
                             <?php } else { ?>
                                 <button type="button" id="save" class="btn btn-outline-success m-btn m-btn--custom" style="font-family: sans-serif, Arial;">Save</button>
 
-                                <button type="button" id="save" class="btn btn-outline-success m-btn m-btn--custom" style="font-family: sans-serif, Arial;">Save and Send Email</button>
+                                <button type="button" id="save_send_email" class="btn btn-outline-success m-btn m-btn--custom" style="font-family: sans-serif, Arial;">Save and Send Email</button>
 
                             <?php } ?>
                             <a type="button" href="<?php echo base_url() . 'upload/sampleRfqItemList.xlsx' ?>" class="btn btn-default m-btn m-btn--custom">Download Sample Excel</a>
@@ -352,11 +366,10 @@
 
                     <div class="form-group m-form__group row" style="padding-top: 1rem;margin: 1px;padding-left: 10px;padding-right: 10px;width: 100%!important;">
 
-                        <div id="tableList" style="width: 100%;">
+                        <div id="RFQItemList" style="width: 100%;">
 
-                            <table class="table table-bordered" id="itemTable">
-
-                            </table>
+							<!-- tableList // itemTable-->
+                            
 
                         </div>
 
@@ -825,6 +838,8 @@ $(document).ready(function() {
     //alert('test');
 
     var selectedValuesTest = [<?php echo isset($value['company_id']) ? $value['company_id'] : ''; ?>];
+
+    //alert(selectedValuesTest);
     
     ///// code for  select multipale Customer Company Name
   $("#company_id").select2({

@@ -403,13 +403,13 @@ class Rfq_model extends CI_Model
 
                 $this->db->update($this->tableNameWorksheet, $insertField);
 
-                // print_r($this->db->get_compiled_update());exit;
+                 //print_r($this->db->get_compiled_update());exit;
 
             } else {
 
                 $id = $this->db->insert($this->tableNameWorksheet, $insertField);
 
-                // print_r($this->db->get_compiled_update());exit;
+                 //print_r($this->db->get_compiled_update());exit;
 
                 $insert_id = $this->db->insert_id();
 

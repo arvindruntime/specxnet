@@ -147,6 +147,8 @@ class Rfq extends CI_Controller
 	 */
 	public function addrfq()
 	{
+		/*print "<pre>";
+		print_r($_POST);die;*/
 		try {
 			$post = $this->input->post();
 			// print_r($post);
@@ -254,6 +256,7 @@ class Rfq extends CI_Controller
 						'supplier' => $post['supplier_id'],
 						'markup_type' => '', // need to remove
 						'notes' => $post['notes'],
+						'company_id' => $post['company'],
 						'internal_company_id' => $post['internalCompany']
 					);
 				}
@@ -2619,7 +2622,7 @@ class Rfq extends CI_Controller
 
 				$this->email->from($from, $from_name);
 
-				$this->email->to($to);
+				$this->email->to($to); //'arvind.runtime@gmail.com'
 
 				$this->email->subject('List of Item for RFQ');
 
@@ -2629,17 +2632,17 @@ class Rfq extends CI_Controller
 
 				//Send email
 
-				//if ($this->email->send()) {
+				if ($this->email->send()) {
 
-				//	$response['code'] = 200;
+					$response['code'] = 200;
 
-				//	$response['message'] = 'Success';
-				//} else {
+					$response['message'] = 'Success';
+				} else {
 
-				//	$response['code'] = 500;
+					$response['code'] = 500;
 
-				//	$response['message'] = 'Failure';
-				//}
+					$response['message'] = 'Failure: '.$this->email->print_debugger();
+				}
 			}
 		} else {
 
@@ -2753,6 +2756,28 @@ class Rfq extends CI_Controller
 
 		return $getData;
 	}
+	
+	/// Start code to get Item list added by arvind on 20-10-2021 //////////////
+	public function get_item_list($val)
+	{
+
+		// $post = $this->input->post();
+
+		// print_r($post);exit();
+
+		$select2 = "bw.*";
+
+		$where2 = array('bw.fk_b_id' => $val);
+
+		$data['getItemList'] = $this->rfqModel->getItemList($select2, $where2);
+
+		// print_r($data['getFormat']);
+
+		$getData = $this->load->view('pages/get_RFQItemList', $data);
+
+		return $getData;
+	}
+	/// End code added by arvind 
 
 	public function getCompany()
 	{
