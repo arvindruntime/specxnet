@@ -356,11 +356,9 @@
 
                 <div class="tab-pane" id="m_portlet_base_demo_16_tab_content" role="tabpanel">
 
+                    <button type="button" id="addButton" class="btn btn-success active" data-toggle="modal" data-target="#addModal" style="height: 30px;padding: .45rem 1.15rem; margin-right:10px;">Add New Item</button>
 
-
-                    <button type="button" id="addButton" class="btn btn-success active" data-toggle="modal" data-target="#addModal" style="height: 30px;padding: .45rem 1.15rem; margin-right:10px;">Add</button>
-
-                    <button type="button" id="deleteButton" class="btn btn-primary" style="height: 30px;padding: .45rem 1.15rem; margin-right:10px;">Delete</button>
+                    <button type="button" id="deleteButton" class="btn btn-primary" style="height: 30px;padding: .45rem 1.15rem; margin-right:10px;">Delete Selected items</button>
 
 
 
@@ -728,6 +726,58 @@
         </div>
 
     </div>
+	
+	
+	
+	<div class="modal fade hide" id="globalModal" role="dialog" aria-labelledby="" aria-hidden="false" style="display: none;">
+
+        <div class="modal-dialog modal-lg" role="document" style="margin-top: 100px;padding:100px;max-width: 600px !important;max-height: 400px !important;">
+
+            <div class="modal-content" style="height:140px;">
+
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="globalModal" aria-label="Close">
+
+                        <span aria-hidden="true" class="la la-remove"></span>
+
+                    </button>
+
+                </div>
+				
+				<div class="modal-body">
+				
+					<!-- alert-dismissible fade show -->
+				<div class="alert alert-success" style="display:none;">
+				<strong>Success!</strong> <span id="success"></span>
+				</div>
+				
+				<div class="alert alert-danger" style="display:none;">
+				<strong>Danger!</strong> <span id="error"></span>
+			  </div>
+			  
+			  </div>
+				
+            </div>
+
+        </div>
+
+    </div>
+	
+	
+	  <!-- Modal confirm -->
+<div class="modal" id="confirmModal" style="display: none; z-index: 1050;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body" id="confirmMessage">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="confirmOk">Ok</button>
+            <button type="button" class="btn btn-default" id="confirmCancel">Cancel</button>
+          </div>
+    </div>
+  </div>
+</div>
 
 
 

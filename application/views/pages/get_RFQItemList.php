@@ -1,161 +1,182 @@
-<?php //print_r($getItemList);
+<?php //print_r($getItemList);?>
 
-//print_r($getFormat);?><table class="table table-borderless">
+<script>
+$(document).ready(function() {
+    $('#itemsListDataTable').DataTable( {
+    });
+} );
+</script>
+	<div style="overflow-x:auto">
+<table id="itemsListDataTable" class="table table-striped- table-bordered table-hover table-checkable m-datatable--scroll dataTable no-footer dtr-inline" >
 
-                                                              
-                                <tr>
+<thead>
 
-                                    <td colspan="4" align="center">
+    <tr style="height: 32px;color: black;background-color: #d1cdcd;font-size: 15px">
+		<th><input type="checkbox" onClick="selectItems(this)"></th>
+        <th>Action</th>
 
-                                        <table class="table table-bordered">
+        <th>Room Type</th>
 
-                                            <thead>
+        <th>Item Name</th>
 
-                                                <tr style="height: 32px;color: black;background-color: #d1cdcd;font-size: 15px">
-													<th><input type="checkbox" name="" value=""></th>
-                                                    <th>Sr No</th>
+        <th>Item Code</th>
 
-                                                    <th>Room Type</th>
+        <th>Item Type</th>
 
-                                                    <th>Item Name</th>
+        <th>Photo</th>
 
-                                                    <th>Item Code</th>
+        <th>Width</th>
 
-                                                    <th>Item Type</th>
+        <th>Depth</th>
 
-                                                    <th>Photo</th>
+        <th>Height</th>
 
-                                                    <th>Width</th>
+        <th>Short Height</th>
 
-                                                    <th>Depth</th>
+        <th>Technical Description</th>
 
-                                                    <th>Height</th>
+        <th>Quantity</th>
 
-                                                    <th>Short Height</th>
+        <th>Fabric Quantity</th>
 
-                                                    <th>Technical Description</th>
+        <th>Leather Quantity</th>
 
-                                                    <th>Quantity</th>
+        <th>CBM</th>
 
-                                                    <th>Fabric Quantity</th>
+        <th>Note</th>
+		
 
-                                                    <th>Leather Quantity</th>
+    </tr>
 
-                                                    <th>CBM</th>
+</thead>
 
-                                                    <th>Note</th>
-													<th>Action</th>
+<tbody>
 
-                                                </tr>
+    <?php
 
-                                            </thead>
+        if (isset($getItemList)) {
 
-                                            <tbody>
-											
-											
-											
-											
-											
-											
-                                                <?php
+            $i=1;
 
-                                                    if (isset($getItemList)) {
+            foreach ($getItemList as $item) { 
 
-                                                        $i=1;
+                if ($item['item_name'] !='') {
+            ?>
+			<form enctype="multipart/form-data" method="post" class="m-form m-form--fit m-form--label-align-right item-list">
 
-                                                        foreach ($getItemList as $item) { 
+                <tr>
+					<td><input type="checkbox" name="items" value="<?php echo isset($item['bw_id']) ? $item['bw_id'] : ''; ?>" >
+            <input type="hidden" name="fk_b_id" class="fk_b_id" value="<?php echo isset($item['fk_b_id']) ? $item['fk_b_id'] : ''; ?>">
 
-                                                            if ($item['item_name'] !='') {
-																
-																
+            <input type="hidden" name="bw_id" class="bw_id" value="<?php echo isset($item['bw_id']) ? $item['bw_id'] : ''; ?>">
 
-                                                        ?>
-														<form enctype="multipart/form-data" method="post" class="m-form m-form--fit m-form--label-align-right item-list">
-														
-														<input type="hidden" name="fk_b_id" id="fk_b_id" value="<?php echo isset($item['fk_b_id']) ? $item['fk_b_id'] : ''; ?>">
-														
-														
+                    </td>
+					
+					<td><a data-type="save_n_close" class="m-btn" id="WorkSheetBtn" data-toggle="modal" data-target="#addModal" style="font-family: sans-serif, Arial;"><i class="la la-edit"></i></a>
+					
+					<a class="delete_single_item"><i class="far fa-trash-alt"></i></a>
+					
+					</td>
+                    
 
-														<input type="hidden" name="bw_id" id="bw_id" value="<?php echo isset($item['bw_id']) ? $item['bw_id'] : ''; ?>">
-							
-                                                            <tr>
-																<td><input type="checkbox" name="item_id" value="" ></td>
-                                                                <td><?php echo $i?></td>
+                    <td>
+						<input type="hidden" name="room_type" class="form-control m-input add_room_type" value="<?php echo isset($item['room_type']) ? $item['room_type'] : ''; ?>" placeholder="Room Type" required="">
+					<?php echo $item['room_type']?></td>
 
-                                                                <td>
-																	<input type="text" name="room_type" id="add_room_type" class="form-control m-input" value="<?php echo isset($item['room_type']) ? $item['room_type'] : ''; ?>" placeholder="Room Type" required="">
-																<?php //echo $item['room_type']?></td>
+                    <td>
+					<input type="hidden" name="item_name" class="form-control m-input add_item_name" placeholder="Item Ref" value="<?php echo isset($item['item_name']) ? $item['item_name'] : ''; ?>" required="">
+					<?php echo $item['item_name']?></td>
 
-                                                                <td>
-																<input type="text" name="item_name" id="add_item_name" class="form-control m-input" placeholder="Item Ref" value="<?php echo isset($item['item_name']) ? $item['item_name'] : ''; ?>" required="">
-																<?php //echo $item['item_name']?></td>
+                    <td>
+					<input type="hidden" name="id_code" class="form-control m-input add_id_code" value="<?php echo isset($item['id_code']) ? $item['id_code'] : ''; ?>" placeholder="ID Code" required="">
+					<?php echo $item['id_code']?></td>
 
-                                                                <td>
-																<input type="text" name="id_code" id="add_id_code" class="form-control m-input" value="<?php echo isset($item['id_code']) ? $item['id_code'] : ''; ?>" placeholder="ID Code" required="">
-																<?php //echo $item['id_code']?></td>
+                    <td><input type="hidden" name="item_type" class="form-control m-input add_item_type" value="<?php echo isset($item['item_type']) ? $item['item_type'] : ''; ?>" placeholder="Item Type" required="">
+					<?php echo $item['item_type']?></td>
 
-                                                                <td><input type="text" name="item_type" id="add_item_type" class="form-control m-input" value="<?php echo isset($item['item_type']) ? $item['item_type'] : ''; ?>" placeholder="Item Type" required="">
-																<?php //echo $item['item_type']?></td>
+                    <td>
+						<input type="hidden" name="photo" id="add_photo<?php echo isset($item['bw_id']) ? $item['bw_id'] : ''; ?>" class="form-control m-input">
+						
+					<?php if ($item['photo']){?><img height="80" width="80" src="upload/addItemImages/<?php echo $item['photo']?>"><?php } else {echo "N/A";} ?></td>
 
-                                                                <td>
-																	<input type="file" name="photo" id="add_photo" value="" class="form-control m-input">
-																	
-																	<input type="hidden" name="temp_photo" id="temp_photo" value="<?php echo isset($item['photo']) ? $item['photo'] : '';?>" class="form-control m-input">
-																	
-																<?php if ($item['photo']){?><img height="80" width="80" src="upload/addItemImages/<?php echo $item['photo']?>"><?php } else {echo "N/A";} ?></td>
+                    <td>
+					<input type="hidden" name="width" value="<?php echo isset($item['width']) ? $item['width'] : '';?>" class="form-control m-input add_width" placeholder="Width">
+					<?php echo $item['width']?></td>
 
-                                                                <td>
-																<input type="text" name="width" id="add_width" value="<?php echo isset($item['width']) ? $item['width'] : '';?>" class="form-control m-input" placeholder="Width">
-																<?php //echo $item['width']?></td>
+                    <td>
+                        <input type="hidden" name="depth" value="<?php echo isset($item['depth']) ? $item['depth'] : '';?>" class="form-control m-input add_depth" placeholder="Depth">
+                        <?php echo $item['depth']?></td>
 
-                                                                <td><?php echo $item['depth']?></td>
+                    <td>
+                        <input type="hidden" name="height" value="<?php echo isset($item['height']) ? $item['height'] : '';?>" class="form-control m-input add_material" placeholder="Height">
+                        <?php echo $item['height']?></td>
 
-                                                                <td><?php echo $item['height']?></td>
+                    <td>
+                        <input type="hidden" name="short_height" value="<?php echo isset($item['short_height']) ? $item['short_height'] : '';?>" class="form-control m-input add_short_height" placeholder="Short Height">
 
-                                                                <td><?php echo $item['short_height']?></td>
+                        <?php echo $item['short_height']?></td>
 
-                                                                <td><?php echo $item['technical_description']?></td>
+                    <td>
 
-                                                                <td><?php echo $item['quantity']?></td>
+                        <input type="hidden" name="technical_description" value="<?php echo isset($item['technical_description']) ? $item['technical_description'] : '';?>" class="form-control m-input add_technical_description">
+                        
+                        <!-- <textarea name="technical_description" class="form-control m-input add_technical_description" placeholder="Technical Description" rows="3" cols="3"><?php echo isset($item['technical_description']) ? $item['technical_description'] : '';?></textarea> -->
 
-                                                                <td><?php echo $item['fabric_quantity']?></td>
+                        <?php echo $item['technical_description']?></td>
 
-                                                                <td><?php echo $item['leather_quantity']?></td>
+                    <td>
+                        <input type="hidden" name="quantity" value="<?php echo isset($item['quantity']) ? $item['quantity'] : '';?>" class="form-control m-input add_quantity" placeholder="Quantity">
 
-                                                                <td><?php echo $item['cbm']?></td>
+                        <?php echo $item['quantity']?></td>
 
-                                                                <td><?php echo $item['note']?></td>
-																<td><button type="button" data-type="save_n_close" class="btn btn-primary m-btn" id="WorkSheetBtn" style="font-family: sans-serif, Arial;">Update</button></td>
+                    <td>
+                        <input type="hidden" name="fabric_quantity" value="<?php echo isset($item['fabric_quantity']) ? $item['fabric_quantity'] : '';?>" class="form-control m-input add_fabric_quantity" placeholder="Quantity">
 
-                                                            </tr>
-															</form>
-															
+                        <?php echo $item['fabric_quantity']?></td>
 
-                                                    <?php
+                    <td>
+                        <input type="hidden" name="leather_quantity" value="<?php echo isset($item['leather_quantity']) ? $item['leather_quantity'] : '';?>" class="form-control m-input add_leather_quantity" placeholder="Quantity">
 
-                                                        $i++; }}
+                        <?php echo $item['leather_quantity']?></td>
 
-                                                    } else { ?>
+                    <td>
+                        <input type="hidden" class="form-control m-input add_percentage_units" placeholder="CBM" value="<?php echo isset($item['cbm']) ? $item['cbm'] : '';?>" name="cbm" aria-describedby="basic-addon1">
 
-                                                        <tr>
+                        <?php echo $item['cbm']?></td>
 
-                                                            <td colspan="3">No Data Available</td>
+                    <td>
+                        <input type="hidden" name="add_note" value="<?php echo isset($item['note']) ? $item['note'] : '';?>" class="form-control m-input add_note">
+                        <?php echo $item['note']?></td>
+					
 
-                                                        </tr>
+                </tr>
+				</form>
+        <?php
 
-                                                   <?php }
+            $i++; }}
 
-                                                    ?>
+        } else { ?>
 
-                                                
-												
-											
-                                            </tbody>
+            <tr>
 
-                                       </table>
+                <td colspan="3">No Data Available</td>
 
-                                    </td>
+            </tr>
 
-                                </tr>
+       <?php }
 
-                            </table>
+        ?>
+</tbody>
+
+</table>
+
+</div>
+<script type="text/javascript">
+    function selectItems(source) {
+    
+  checkboxes = document.getElementsByName('items');
+  for(var i=0, n=checkboxes.length;i<n;i++) {
+    checkboxes[i].checked = source.checked;
+  }
+}
+</script>

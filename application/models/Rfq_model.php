@@ -93,7 +93,10 @@ class Rfq_model extends CI_Model
             $this->db->from("bid_worksheet bw");
             $this->db->join("bid b", "bw.fk_b_id = b.b_id", "inner");
             //$this->db->join("bid_worksheet_item bwi", "bw.bw_id = bwi.fk_bw_id", "inner");
-            $this->db->where($where);
+			if($where!='' && isset($where))
+			{
+				$this->db->where($where);
+			}
             $this->db->where("item_name !='' and id_code !=''");
             // print_r($this->db->get_compiled_select());exit;
             $proposalData = $this->db->get();

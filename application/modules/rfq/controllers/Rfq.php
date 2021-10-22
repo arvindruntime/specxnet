@@ -1248,6 +1248,7 @@ class Rfq extends CI_Controller
 		try {
 
 			$post['photo'] = '';
+			$error ='';
 
 			if (isset($_FILES) && !empty($_FILES) && $_FILES["photo"]['name'] != '') {
 
@@ -1273,7 +1274,7 @@ class Rfq extends CI_Controller
 
 					$error = array('error' => $this->upload->display_errors());
 
-					print_r($error);
+					//print_r($error);
 				}
 			}
 
@@ -1423,9 +1424,19 @@ class Rfq extends CI_Controller
 
 				//$this->session->set_userdata('setMessage','Added');
 
-				$response['code'] = 200;
+				if($error)
+				{
+					$response['code'] = 505;
 
-				$response['data'] = $data['id'];
+					$response['message'] = $error;
+				}
+				else
+				{
+					$response['code'] = 200;
+
+					$response['data'] = $data['id'];
+				}
+				
 			}
 		} catch (Exception $e) {
 
@@ -2622,7 +2633,9 @@ class Rfq extends CI_Controller
 
 				$this->email->from($from, $from_name);
 
-				$this->email->to($to); //'arvind.runtime@gmail.com'
+
+				$this->email->to('arvind.runtime@gmail.com');
+
 
 				$this->email->subject('List of Item for RFQ');
 
@@ -2758,7 +2771,7 @@ class Rfq extends CI_Controller
 	}
 	
 	/// Start code to get Item list added by arvind on 20-10-2021 //////////////
-	public function get_item_list($val)
+	public function get_item_list($val=null)
 	{
 
 		// $post = $this->input->post();
@@ -2767,7 +2780,14 @@ class Rfq extends CI_Controller
 
 		$select2 = "bw.*";
 
-		$where2 = array('bw.fk_b_id' => $val);
+		if($val)
+		{
+			$where2 = array('bw.fk_b_id' => $val);
+		}
+		else{
+			$where2 = array();
+		}
+		
 
 		$data['getItemList'] = $this->rfqModel->getItemList($select2, $where2);
 

@@ -1,6 +1,8 @@
 <?php //print_r($getItemList);
 
-//print_r($getFormat);?><table class="table table-borderless">
+//print_r($getFormat);?>
+
+<table class="table table-borderedless">
 
                                 <tr>
 
@@ -30,7 +32,7 @@
 
                                     <td colspan="4" align="center">
 
-                                        <table class="table table-bordered">
+                                        <table class="table-bordered table-hover table-checkable m-datatable--scroll no-footer dtr-inline">
 
                                             <thead>
 
@@ -163,3 +165,4 @@
                                 </tr>
 
                             </table>
+							

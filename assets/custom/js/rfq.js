@@ -202,6 +202,15 @@ $(document).ready(function() {
 
     });
 
+    /*$(document).on('click', '.selectItems', function(){
+      checkboxes = document.getElementsByName('items');
+
+      
+      for(var checkbox in checkboxes)
+        alert(checkbox.checked);
+      //checkbox.checked = source.checked;
+    });*/
+
 
 
     $(document).on('click', '.upload-bid', function() {
@@ -1819,6 +1828,9 @@ function getCIF(val) {
 
 
 $(document).on('click', '#addButton', function(e) {
+	
+	$('#saveAs').html('Save & New');
+	$('#item_header').html('Add Item');
 
     $('#addModal').modal("show");
 
@@ -1857,6 +1869,16 @@ $(document).on('click', '#closeItemButtonFTR', function(e) {
     // $("#addModal").removeClass("in");
 
     $('#addModal').hide();
+
+});
+
+$(document).on('click', '.close', function(e) {
+
+    $("#globalModal").removeClass("show");
+
+    // $("#addModal").removeClass("in");
+
+    $('#globalModal').hide();
 
 });
 
@@ -2559,6 +2581,7 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
+	
 
     // Function to get input value.
 
@@ -2631,7 +2654,7 @@ function get_preview(b_id) {
 
 ///// Start code added by arvind on 20-10-2021 /////////
 
-function get_item_list(b_id) {
+function get_item_list(b_id=null) {
 
     var fk_b_id = $('#fk_b_id').val();
 
@@ -3097,8 +3120,20 @@ function getItemList(val) {
 }
 
 
-
+function confirmDialog(message, onConfirm){
+	var fClose = function(){
+		  modal.modal("hide");
+	};
+	var modal = $("#confirmModal");
+	modal.modal("show");
+	$("#confirmMessage").empty().append(message);
+	$("#confirmOk").unbind().one('click', onConfirm).one('click', fClose);
+	$("#confirmCancel").unbind().one("click", fClose);
+}
+		
 $(document).on('click', '#deleteButton', function(e) {
+
+var YOUR_MESSAGE_STRING_CONST = "Are you sure you want to delete record!";
 
     // alert($('#fk_b_id').val());
 
@@ -3106,7 +3141,7 @@ $(document).on('click', '#deleteButton', function(e) {
 
     var item_id = [];
 
-    $.each($("input[name='id']:checked"), function() {
+    $.each($("input[name='items']:checked"), function() {
 
         item_id.push($(this).val());
 
@@ -3117,12 +3152,19 @@ $(document).on('click', '#deleteButton', function(e) {
     item_list = item_id.join(",");
 
     if (item_list != '') {
+		
+		confirmDialog(YOUR_MESSAGE_STRING_CONST, function(){
+    			//My code to delete
+          //console.log("deleted!");
+    		
+			
 
-        var answer = confirm("Are you sure you want to delete record!");
+        //var answer = confirm("Are you sure you want to delete record!");
+		
 
         ajax.url = window.baseUrl + 'rfq/deleteitem';
 
-        if (answer) {
+        //if (answer) {
 
             $.ajax({
 
@@ -3138,13 +3180,26 @@ $(document).on('click', '#deleteButton', function(e) {
 
                         // alert(data);
 
-                        msg = "<div class='alert alert-success'><strong>Success!</strong> RFQ Item(s) Deleted Successfully! </div>";
+                        //msg = "<div class='alert alert-success'><strong>Success!</strong> RFQ Item(s) Deleted Successfully! </div>";
 
-                        $('#validation_errors_delete').html(msg);
+                        //$('#validation_errors_delete').html(msg);
 
                         datastring = { fk_b_id: fk_b_id };
 
                         table.rfqPopupTable(datastring);
+
+                        get_item_list();
+						
+						$('.alert-success').hide();
+						$('.alert-danger').show();
+        
+						$('#error').html('RFQ Item(s) Deleted Successfully!');
+					  
+						$('#globalModal').modal("show");
+
+						$("#globalModal").addClass("show");
+
+						$('#globalModal').show();
 
                         // window.location.reload();                
 
@@ -3152,15 +3207,29 @@ $(document).on('click', '#deleteButton', function(e) {
 
                 },
 
-                error: function() { alert("Error Deleting User."); }
+                error: function() { 
+				
+				$('.alert-success').hide();
+				$('.alert-danger').show();
+        
+				$('#error').html('Error Deleting User.');
+			  
+				$('#globalModal').modal("show");
+
+				$("#globalModal").addClass("show");
+
+				$('#globalModal').show();
+						
+				//alert("Error Deleting User."); 
+				}
 
             });
 
-        }
+        });
 
     } else {
 
-        alert('Please select atleast one record to delete !')
+        alert('Please select at least one record to delete !')
 
     }
 
@@ -3348,6 +3417,17 @@ function excelUpload() {
             $('.excel-upload-response').html(data.message);
 
             $('#validation_errors_upload_tab').html(data.message);
+			
+			$('.alert-danger').hide();
+			$('.alert-success').show();
+        
+			$('#success').html(data.message);
+		  
+			$('#globalModal').modal("show");
+
+			$("#globalModal").addClass("show");
+
+			$('#globalModal').show();
 
             // $('#importExcel').prop('disabled',false);
 
@@ -3435,156 +3515,112 @@ function exportTableToExcelAnalysis(rfq_id) {
 
 }
 
+$(document).on("click",".delete_single_item",function(){
+	var bw_id = $(this).closest('tr').find(".bw_id").val();
+	
+	get_item_list();
+				
+	$('.alert-danger').hide();
+	$('.alert-success').show();
+
+	$('#success').html('Deleted Successfully.');
+  
+	$('#globalModal').modal("show");
+
+	$("#globalModal").addClass("show");
+
+	$('#globalModal').show();	
+	
+	//alert(bw_id);
+});
+
 $(document).on("click","#WorkSheetBtn",function(){
 	
-	var form_data = new FormData();
+	$('#itemSuccessMessage').html('');
+	$('#item_header').html('Update Item');
+
+    $('#itemSuccessMessageUpdate').html('');
+	$('#saveAs').html('Update');
+	
+	
+	
+	//var form_data = new FormData();
 	//var formdata = $('form.item-list').serialize();
+
+    //var t = $(this).closest('tr').find('.add_room_type').val();
+    //alert(t);
 	
-    var room_type = $("#add_room_type").val();
+    var room_type = $(this).closest('tr').find(".add_room_type").val();
 
-    var add_id_code = $("#add_id_code").val();
+    var add_id_code = $(this).closest('tr').find(".add_id_code").val();
 
-    var add_item_type = $("#add_item_name").val();
+    var add_item_type = $(this).closest('tr').find(".add_item_name").val();
 
-    var add_item_name = $("#add_item_type").val();
+    var add_item_name = $(this).closest('tr').find(".add_item_type").val();
 
-    var add_width = $("#add_width").val();
+    var add_width = $(this).closest('tr').find(".add_width").val();
 
-    var depth = $("#add_depth").val();
+    var depth = $(this).closest('tr').find(".add_depth").val();
 
-    var height = $("#add_material").val();
+    var height = $(this).closest('tr').find(".add_material").val();
 
-    var add_short_height = $("#add_short_height").val();
+    var add_short_height = $(this).closest('tr').find(".add_short_height").val();
 
-    var add_technical_description = $("#add_technical_description").val();
+    var add_technical_description = $(this).closest('tr').find(".add_technical_description").val();
 
-    var add_quantity = $("#add_quantity").val();
+    var add_quantity = $(this).closest('tr').find(".add_quantity").val();
 
-    var add_fabric_quantity = $("#add_fabric_quantity").val();
+    var add_fabric_quantity = $(this).closest('tr').find(".add_fabric_quantity").val();
 
-    var add_leather_quantity = $("#add_leather_quantity").val();
+    var add_leather_quantity = $(this).closest('tr').find(".add_leather_quantity").val();
 
-    var cbm = $("#add_percentage_units").val();
+    var cbm = $(this).closest('tr').find(".add_percentage_units").val();
 
-    var note = $("#add_note").val();
+    var note = $(this).closest('tr').find(".add_note").val();
 
-    var fk_b_id = $("#fk_b_id").val();
+    var fk_b_id = $(this).closest('tr').find(".fk_b_id").val();
 
-    var bw_id = $("#bw_id").val();
+    var bw_id = $(this).closest('tr').find(".bw_id").val();
 
 
+    var rfq_id = $(this).closest('tr').find('.fk_b_id').val();
 
-    var rfq_id = $('#fk_b_id').val();
-
-    form_data.append("photo", document.getElementById('add_photo').files[0]);
-
-    form_data.append("room_type", room_type);
-
-    form_data.append("id_code", add_id_code);
-
-    form_data.append("item_type", add_item_type);
-
-    form_data.append("item_name", add_item_name);
-
-    form_data.append("width", add_width);
-
-    form_data.append("depth", depth);
-
-    form_data.append("height", height);
-
-    form_data.append("short_height", add_short_height);
-
-    form_data.append("technical_description", add_technical_description);
-
-    form_data.append("quantity", add_quantity);
-
-    form_data.append("fabric_quantity", add_fabric_quantity);
-
-    form_data.append("leather_quantity", add_leather_quantity);
-
-    form_data.append("cbm", cbm);
-
-    form_data.append("note", note);
-
-    form_data.append("fk_b_id", fk_b_id);
-
-    form_data.append("bw_id", bw_id);
+    var photo_id = '#add_photo'+bw_id;
 	
+	////////////// Set Data into fields //////////////////////////
 	
+	$("#add_room_type").val(room_type);
+
+	$("#add_id_code").val(add_id_code);
+
+	$("#add_item_type").val(add_item_type);
+
+	$("#add_item_name").val(add_item_name);
+
+	$("#add_width").val(add_width);
+
+	$("#depth").val(depth);
+
+	$("#add_material").val(height);
+
+	$("#add_short_height").val(add_short_height);
+
+	$("#add_technical_description").val(add_technical_description);
+
+	$("#add_quantity").val(add_quantity);
+
+	$("#add_fabric_quantity").val(add_fabric_quantity);
+
+	$("#add_leather_quantity").val(add_leather_quantity);
+
+	$("#add_percentage_units").val(cbm);
+
+	$("#add_note").val(note);
 	
-	$.ajax({
-
-        url: "rfq/create/worksheet",
-
-        method: "POST",
-
-        data: form_data,
-
-        contentType: false,
-
-        cache: false,
-
-        processData: false,
-
-        // beforeSend: function () {
-
-        //         $('#importExcel').html("Excel Uploading...");
-
-        //         $('#importExcel').prop('disabled',true);
-
-        // },
-
-        success: function(data) {
-
-            console.log(data);
-
-            var newData = JSON.parse(data);
-
-            $('#itemSuccessMessage').html(newData.message);
-
-            $('#itemSuccessMessageUpdate').html(newData.message);
-
-            if (newData.saveNew == 'saveNew') {
-
-                $("#add_room_type").val('');
-
-                $("#add_id_code").val('');
-
-                $("#add_item_type").val('');
-
-                $("#add_item_name").val('');
-
-                $("#add_width").val('');
-
-                $("#depth").val('');
-
-                $("#add_material").val('');
-
-                $("#add_short_height").val('');
-
-                $("#add_technical_description").val('');
-
-                $("#add_quantity").val('');
-
-                $("#add_fabric_quantity").val('');
-
-                $("#add_leather_quantity").val('');
-
-                $("#add_percentage_units").val('');
-
-                $("#add_note").val('');
-
-            }
-
-            // if (newData.code == 200) {
-
-            //     window.location.reload();
-
-            // }
-
-        }
-
-    });
+	$("#fk_b_id").val(fk_b_id);
+	$("#bw_id").val(bw_id);
+	
+	//document.getElementById('add_photo'+bw_id).files[0]
 });
 function AddUpdateItem() {
 
@@ -3714,7 +3750,7 @@ function AddUpdateItem() {
 
             $('#itemSuccessMessageUpdate').html(newData.message);
 
-            if (newData.saveNew == 'saveNew') {
+            //if (newData.saveNew == 'saveNew') {
 
                 $("#add_room_type").val('');
 
@@ -3743,12 +3779,32 @@ function AddUpdateItem() {
                 $("#add_percentage_units").val('');
 
                 $("#add_note").val('');
+				
+				$("#fk_b_id").val('');
 
-            }
+				$("#bw_id").val('');
+				
+				$('#addModal').hide();
+
+				get_item_list();
+				
+				$('.alert-danger').hide();
+				$('.alert-success').show();
+				
+				$('#success').html(newData.message);
+			
+				$('#globalModal').modal("show");
+
+				$("#globalModal").addClass("show");
+
+				$('#globalModal').show();
+				
+				//window.location.reload();
+            //}
 
             // if (newData.code == 200) {
 
-            //     window.location.reload();
+            //     
 
             // }
 
