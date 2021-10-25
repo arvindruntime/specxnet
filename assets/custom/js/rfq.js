@@ -33,6 +33,8 @@ $(document).ready(function() {
 
 
                     if (row.access == "No") {
+						
+						//alert('Supplier');
                         // return '';
                         // var accepted_rebid_id = "";
                         // var rejected_rebid_id = "";
@@ -83,6 +85,7 @@ $(document).ready(function() {
 
 
                     } else {
+						
                         // var totalrebid = row.totalRebid_id;
                        // console.log(row);
                         var re_bid_btn = "";
@@ -3518,20 +3521,60 @@ function exportTableToExcelAnalysis(rfq_id) {
 $(document).on("click",".delete_single_item",function(){
 	var bw_id = $(this).closest('tr').find(".bw_id").val();
 	
-	get_item_list();
+	var YOUR_MESSAGE_STRING_CONST = "Are you sure you want to delete record!";
+	//debugger;
+    confirmDialog(YOUR_MESSAGE_STRING_CONST, function(){
+		
+		
+
+        ajax.url = window.baseUrl + 'rfq/deleteitem';
+
+            $.ajax({
+
+                type: "POST",
+
+                url: ajax.url,
+
+                data: { 'item_id': bw_id },
+
+                success: function(data) {
+
+                    if (data == 'success') {
+
+					get_item_list();
+					
+					$('.alert-success').hide();
+					$('.alert-danger').show();
 				
-	$('.alert-danger').hide();
-	$('.alert-success').show();
+					$('#error').html('RFQ Item(s) Deleted Successfully!');
+					
+					$('#globalModal').modal("show");
 
-	$('#success').html('Deleted Successfully.');
-  
-	$('#globalModal').modal("show");
+					$("#globalModal").addClass("show");
 
-	$("#globalModal").addClass("show");
+					$('#globalModal').show();               
 
-	$('#globalModal').show();	
-	
-	//alert(bw_id);
+                    }
+
+                },
+
+                error: function() { 
+        
+					$('.alert-success').hide();
+					$('.alert-danger').show();
+					
+					$('#error').html('Error Deleting User.');
+					
+					$('#globalModal').modal("show");
+
+					$("#globalModal").addClass("show");
+
+					$('#globalModal').show();
+				}
+
+            });
+
+        });	
 });
 
 $(document).on("click","#WorkSheetBtn",function(){

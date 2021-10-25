@@ -101,6 +101,8 @@
                             <div class="input-group">
 							
 							<?php //print"<pre>";print_r($value); ?>
+							
+							<input type="hidden" name="status" id="status" value="<?php echo isset($value['status']) ? $value['status'] : ''; ?>">
 
                                 <input type="text" class="form-control m-input" id="project_name" value="<?php echo $value['project_name'] ?? ''; ?>" placeholder="Please Enter Project Name">
 
@@ -691,7 +693,8 @@
 
                             <hr />
 
-                            <input type="hidden" name="fk_b_id" id="fk_b_id" value="<?php echo isset($b_id) ? $b_id : ''; ?>">
+                            <input type="hidden" name="fk_b_id" id="fk_b_id" value="<?php echo isset($b_id) ? $b_id : ''; ?>">							
+							
 
                             <input type="hidden" name="bw_id" id="bw_id" value="">
 

@@ -249,7 +249,6 @@ class Rfq extends CI_Controller
 				} else {
 					$insertArray = array(
 						'title' => $title,
-						'status' => $post['status'],
 						'fk_lead_opportunity_id' => $post['lead_opportunity_id'],
 						'project_name' => $post['projectName'],
 						'approval_deadline' => $approval_deadline,
@@ -736,7 +735,6 @@ class Rfq extends CI_Controller
 
 	public function getRfq()
 	{
-
 		$request = $this->input->get();
 
 		// print_r($request);exit;
@@ -753,6 +751,7 @@ class Rfq extends CI_Controller
 
 		if (array_key_exists("q", $request) && !empty(json_decode($request['q']))) {
 
+		
 			$requestNew = json_decode($request['q']);
 
 			if (isset($requestNew->lead_opportunity) && !empty($requestNew->lead_opportunity)) {
@@ -2946,6 +2945,9 @@ class Rfq extends CI_Controller
 		$rebidId = 0;
 		$i = 1;
 		//echo "<pre>"; print_r($item);
+		
+		if(isset($item) && !empty($item) && is_array($item))
+		{
 		foreach ($item as $key => $value) {
 			$rebidId   = $value['rebid_id'];
 			$markup_type = $value['markup_type'];
@@ -3095,13 +3097,20 @@ class Rfq extends CI_Controller
 			array_push($tables, $table);
 		}
 		
-		$response['data'] = $tables;
-		//print_r($tables);
-		 //exit();
-		$response['sId'] = '<input type="hidden" value="' . $userId . '" name="sId">';
-		$response['rfqId'] = '<input type="hidden" value="' . $rfqId . '" name="rfqId">';
-		$response['rebid_id'] = $value['rebid_id'];
-		// echo "<pre>";
+		
+			$response['data'] = $tables;
+			//print_r($tables);
+			 //exit();
+			$response['sId'] = '<input type="hidden" value="' . $userId . '" name="sId">';
+			$response['rfqId'] = '<input type="hidden" value="' . $rfqId . '" name="rfqId">';
+			$response['rebid_id'] = $value['rebid_id'];
+			$response['code'] = 200;
+			// echo "<pre>";
+		}
+		else{
+			$response['code'] = 201;
+		}
+		
 		$html = $this->load->view('bidtable', $response, true);
 		$json['data'] = $html;
 		$json['code'] = 200;
@@ -3299,6 +3308,9 @@ class Rfq extends CI_Controller
 	{
 
 		$post = $this->input->post();
+		
+		//print"<pre>";
+		//print_r($post);die;
 
 		$countData = count($post['ex_factory_unit_price']);
 
@@ -3344,8 +3356,29 @@ class Rfq extends CI_Controller
 			if (isset($post['fabric_price'][$i]) && $post['fabric_price'][$i] != '') {
 
 				$data['fabric_price'] = $post['fabric_price'][$i];
+				
+				$fabric_price = $post['fabric_price'][$i];
+				if($fabric_price>0)
+				{
+					$fabric_price = $fabric_price;
+				}
+				else{
+					$fabric_price = 0;
+				}
+				
+				$fabric_quantity = $post['fabric_quantity'][$i];
+				if($fabric_quantity>0)
+				{
+					$fabric_quantity = $fabric_quantity;
+				}
+				else{
+					$fabric_quantity = 0;
+				}
 
-				$data['unit_total_price_fabric'] = $unitFabricPrice = $post['fabric_price'][$i] * $post['fabric_quantity'][$i];
+				$data['unit_total_price_fabric'] = ($fabric_price * $fabric_quantity);
+				
+				$unitFabricPrice = $data['unit_total_price_fabric'];
+
 			} else {
 
 				$data['fabric_price'] = 0;
@@ -3358,8 +3391,29 @@ class Rfq extends CI_Controller
 			if (isset($post['leather_price'][$i]) && $post['leather_price'][$i] != '') {
 
 				$data['leather_price'] = $post['leather_price'][$i];
+				
+				$leather_price = $post['leather_price'][$i];
+				if($leather_price>0)
+				{
+					$leather_price = $leather_price;
+				}
+				else{
+					$leather_price = 0;
+				}
+				
+				$leather_quantity = $post['leather_quantity'][$i];
+				if($leather_quantity>0)
+				{
+					$leather_quantity = $leather_quantity;
+				}
+				else{
+					$leather_quantity = 0;
+				}
+				
 
-				$data['unit_total_price_leather'] = $unitLeatherPrice = $post['leather_price'][$i] * $post['leather_quantity'][$i];
+				$data['unit_total_price_leather'] = $leather_price * $leather_quantity;
+				
+				$unitLeatherPrice = $data['unit_total_price_leather'];
 			} else {
 
 				$data['leather_price'] = 0;

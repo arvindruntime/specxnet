@@ -11,8 +11,20 @@
 }
 </style>
 
+<script>
+$(document).ready(function() {
+    $('#BidUpdateDataTable').DataTable( {
+    });
+} );
+</script>
+<?php
+if($code==201)
+{
+?>
+<h3>Items not uploaded by admin yet! Please contact admin.</h3>
+<?php }else{ ?>
 <form action="<?php echo base_url('rfq/bid/price'); ?>" method="post">
-    <table class="table table-striped- table-bordered table-hover table-checkable table-responsive my-class">
+    <table id="BidUpdateDataTable" class="table table-striped- table-bordered table-hover table-checkable m-datatable--scroll dataTable no-footer dtr-inline table-responsive my-class">
         <thead>
             <?php
             $i=1;
@@ -97,6 +109,14 @@
             <?php foreach ($data as $key => $value) { ?>
                 <tr>
                     <?php
+					
+					if($value['fabric_quantity_hidden']>0)
+					{
+						$fabric_quantity_hidden = $value['fabric_quantity_hidden'];	
+					}
+					else{
+						$fabric_quantity_hidden = 0;
+					}
                     echo $value['bwi_id'].''.$value['fabric_quantity_hidden'].''.$value['leather_quantity_hidden'].''.$value['bw_id'].''.$value['ex_factory_quantity'].''.$sId;
                     ?>
                     <td><?php echo $value['room_type']?></td>
@@ -108,8 +128,8 @@
                     <td><?php echo $value['h']?></td>
                     <td><?php echo $value['sh']?></td>
                     <td><?php echo $value['qty']?></td>
-                    <td><?php echo $value['fabric_quantity']?></td>
-                    <td><?php echo $value['leather_quantity']?></td>
+                    <td><?php echo ($value['fabric_quantity']>0) ? $value['fabric_quantity'] : 0;?></td>
+                    <td><?php echo ($value['leather_quantity']>0) ? $value['leather_quantity'] : 0; ?></td>
                     <?php if (isset($value['ex_factory_unit_price'])) { ?>
                         <td><?php echo $value['ex_factory_unit_price']?></td>
                     <?php }?>
@@ -177,3 +197,4 @@
     <button type="submit" class="btn btn-success">Save</button>
 <?php } ?>
 </form>
+<?php } ?>

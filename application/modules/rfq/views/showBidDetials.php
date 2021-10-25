@@ -53,7 +53,7 @@
                         echo "<p>No Images Uploaded.</p>";
                     } ?>
                     <label for="street_address"><strong>Download Specification:</strong></label>
-                    <a type='button' onclick="downloadItem(<?php echo $value['b_id']; ?>)"><i class="fas fa-file-download"></i></a>
+                    <a type='button' onclick="downloadItem(<?php echo $value['b_id']; ?>)" style="cursor:pointer;"><i class="fas fa-file-download"></i></a>
                 </div>
             </div>
         </div>
