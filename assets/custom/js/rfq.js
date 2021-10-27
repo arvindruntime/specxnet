@@ -775,6 +775,8 @@ $(document).on('click', '#save', function(e) {
                         CKEDITOR.replace('format_header');
 
                         CKEDITOR.replace('format_footer');
+						
+						$('#modal').animate({ scrollTop: 0 }, 'slow');
 
                     } else {
 
@@ -1875,6 +1877,16 @@ $(document).on('click', '#closeItemButtonFTR', function(e) {
 
 });
 
+$(document).on('click', '#CloseUploadItemModal', function(e) {
+
+    $("#UploadItemsXLModal").removeClass("show");
+
+    // $("#addModal").removeClass("in");
+
+    $('#UploadItemsXLModal').hide();
+
+});
+
 $(document).on('click', '.close', function(e) {
 
     $("#globalModal").removeClass("show");
@@ -1882,6 +1894,16 @@ $(document).on('click', '.close', function(e) {
     // $("#addModal").removeClass("in");
 
     $('#globalModal').hide();
+
+});
+
+$(document).on('click', '.close', function(e) {
+
+    $("#UploadItemsXLModal").removeClass("show");
+
+    // $("#addModal").removeClass("in");
+
+    $('#UploadItemsXLModal').hide();
 
 });
 
@@ -3423,14 +3445,18 @@ function excelUpload() {
 			
 			$('.alert-danger').hide();
 			$('.alert-success').show();
+			
+			$('#UploadItemsXLModal').modal("hide");
         
-			$('#success').html(data.message);
+			$('#success').html('RFQ Items added successfully.');
 		  
 			$('#globalModal').modal("show");
 
 			$("#globalModal").addClass("show");
 
 			$('#globalModal').show();
+			
+			//window.location.reload();
 
             // $('#importExcel').prop('disabled',false);
 

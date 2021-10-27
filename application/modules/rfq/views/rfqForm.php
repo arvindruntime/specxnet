@@ -14,7 +14,7 @@
 
                         <a class="nav-link m-tabs__link active show" data-toggle="tab" href="#m_portlet_base_demo_15_tab_content" role="tab" aria-selected="false">
 
-                            RFQ
+                            Step 1:- RFQ
 
                         </a>
 
@@ -26,7 +26,7 @@
 
                         <a class="nav-link m-tabs__link" data-toggle="tab" onclick="get_item_list();" href="#m_portlet_base_demo_16_tab_content" role="tab" aria-selected="true">
 
-                            Worksheet
+                            Step 2:- Worksheet
 
                         </a>
 
@@ -40,7 +40,7 @@
 
                         <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_portlet_base_demo_17_tab_content" role="tab" aria-selected="false">
 
-                            Format
+                            Step 3:- Format
 
                         </a>
 
@@ -52,19 +52,7 @@
 
                         <a class="nav-link m-tabs__link" data-toggle="tab" onclick="get_preview();" href="#m_portlet_base_demo_18_tab_content" role="tab" aria-selected="true">
 
-                            Preview
-
-                        </a>
-
-                    </li>
-
-                    <li class="nav-item m-tabs__item" style="<?php if (!isset($b_id)) {
-                                                                    echo "display:none";
-                                                                } ?>;">
-
-                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_portlet_base_demo_19_tab_content" role="tab" aria-selected="true">
-
-                            Upload Item(s)
+                            Step 4:- Preview & Send Mail
 
                         </a>
 
@@ -321,9 +309,9 @@
 
                                 <!-- <p>Check If you want to Add Worksheet data : <input type="checkbox" id="checkWorkshhet"/></p> -->
 
-                                <p>Check If you want to Add Worksheet data : <input type="checkbox" id="" <?php if (isset($b_id)) {
+                                <!--<p>Check If you want to Add Worksheet data : <input type="checkbox" id="" <?php if (isset($b_id)) {
                                                                                                                 echo "checked disabled";
-                                                                                                            } ?> /></p>
+                                                                                                            } ?> /></p>-->
 
                             <?php } ?>
 
@@ -341,12 +329,10 @@
                             <?php if (isset($b_id)) { ?>
                                 <button type="button" id="save" class="btn btn-outline-success m-btn m-btn--custom" style="font-family: sans-serif, Arial;">Update and Send Email</button>
                             <?php } else { ?>
-                                <button type="button" id="save" class="btn btn-outline-success m-btn m-btn--custom" style="font-family: sans-serif, Arial;">Save</button>
-
-                                <button type="button" id="save_send_email" class="btn btn-outline-success m-btn m-btn--custom" style="font-family: sans-serif, Arial;">Save and Send Email</button>
+                                <button type="button" id="save" class="btn btn-outline-success m-btn m-btn--custom" style="font-family: sans-serif, Arial;">Save & Continue</button>
 
                             <?php } ?>
-                            <a type="button" href="<?php echo base_url() . 'upload/sampleRfqItemList.xlsx' ?>" class="btn btn-default m-btn m-btn--custom">Download Sample Excel</a>
+                            <!--<a type="button" href="<?php echo base_url() . 'upload/sampleRfqItemList.xlsx' ?>" class="btn btn-default m-btn m-btn--custom">Download Sample Excel</a>-->
 
                             <!-- </div> -->
 
@@ -358,9 +344,23 @@
 
                 <div class="tab-pane" id="m_portlet_base_demo_16_tab_content" role="tabpanel">
 
-                    <button type="button" id="addButton" class="btn btn-success active" data-toggle="modal" data-target="#addModal" style="height: 30px;padding: .45rem 1.15rem; margin-right:10px;">Add New Item</button>
+                    <button type="button" id="addButton" class="btn btn-success active" data-toggle="modal" data-target="#addModal" style="height: 35px;padding: .45rem 1.15rem; margin-right:10px;">Add New Item</button>
 
-                    <button type="button" id="deleteButton" class="btn btn-primary" style="height: 30px;padding: .45rem 1.15rem; margin-right:10px;">Delete Selected items</button>
+                    <button type="button" id="deleteButton" class="btn btn-danger" style="height: 35px;padding: .45rem 1.15rem; margin-right:10px;">Delete Selected items</button>
+					
+					<button type="button" id="UploadItemsXL" class="btn btn-success active" data-toggle="modal" data-target="#UploadItemsXLModal" style="height: 35px;padding: .45rem 1.15rem; margin-right:10px;">Upload Item(s)</button>
+					
+					<!--<li class="nav-item m-tabs__item" style="<?php if (!isset($b_id)) {
+                                                                    echo "display:none";
+                                                                } ?>;">
+
+                        <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_portlet_base_demo_19_tab_content" role="tab" aria-selected="true">
+
+                            Upload Item(s)
+
+                        </a>
+
+                    </li>-->
 
 
 
@@ -424,7 +424,9 @@
 
                 <div class="tab-pane" id="m_portlet_base_demo_18_tab_content" role="tabpanel">
 
-                    <button type="button" class="btn btn-success active" onclick="printDiv()" style="height: 30px;padding: .45rem 1.15rem;float: right;">Print</button>
+                    <button type="button" class="btn btn-success active" onclick="printDiv()" style="float: right;">Print</button>
+					
+					<button type="button" id="save_send_email"  class="btn btn-outline-success m-btn m-btn--custom" style="font-family: sans-serif, Arial;float: center;">Send E-mail</button>
 
                     <div class="form-group m-form__group row" id="printdiv" style="padding-top: 1rem;margin: 1px;padding-left: 10px;padding-right: 10px;">
 
@@ -434,45 +436,7 @@
 
                 </div>
 
-                <div class="tab-pane" id="m_portlet_base_demo_19_tab_content" role="tabpanel">
-
-                    <div class="form-group m-form__group row" style="padding-top: 1rem;margin: 1px;padding-left: 10px;padding-right: 10px;">
-
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-
-                            <h3>Upload RFQ Item List</h3>
-
-                        </div>
-
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-
-                            <div id="validation_errors_upload_tab"></div>
-
-                            <form enctype="multipart/form-data" method="post" id="excelUpload" onsubmit="excelUpload()">
-
-                                <div class="modal-body">
-
-                                    <div class="alert hide excel-upload-response" style="color:#ff0000;"></div>
-
-                                    <input type="file" name="uploadFile" id="customFile">
-
-                                    <div class="" style="display:inline;">
-
-                                        <input type="hidden" name="redirectAction" value="<?php echo $redirectAction; ?>">
-
-                                        <button type="submit" id="importExcel" class="btn btn-info m-btn m-btn--custom">Submit</button>
-
-                                    </div>
-
-                                </div>
-
-                            </form>
-
-                        </div>
-
-                    </div>
-
-                </div>
+                
 
                 <!-- </div> -->
 
@@ -758,6 +722,75 @@
 				<div class="alert alert-danger" style="display:none;">
 				<strong>Danger!</strong> <span id="error"></span>
 			  </div>
+			  
+			  </div>
+				
+            </div>
+
+        </div>
+
+    </div>
+	
+	
+	<div class="modal fade hide" id="UploadItemsXLModal" role="dialog" aria-labelledby="" aria-hidden="false" style="display: none;">
+
+        <div class="modal-dialog modal-lg" role="document" style="margin-top: 40px;padding:40px;max-width: 1000px !important;">
+
+            <div class="modal-content" style="height:500px;">
+				
+				<div class="modal-header">
+
+                    <h5 class="modal-title" id="item_header">
+
+                        Upload RFQ Item List
+
+                    </h5>
+
+                    <button type="button" class="close" id="closeItemButtonFTR" data-dismiss="UploadItemsXLModal" aria-label="Close">
+
+                        <span aria-hidden="true" class="la la-remove"></span>
+
+                    </button>
+
+                </div>
+				
+				
+				
+				<div class="modal-body">
+				
+				<div class="col-lg-12 col-md-12 col-sm-12">
+
+                            <div id="validation_errors_upload_tab"></div>
+
+                            <form enctype="multipart/form-data" method="post" id="excelUpload" onsubmit="excelUpload()">
+
+                                <div class="modal-body">
+
+                                    <div class="alert hide excel-upload-response" style="color:#ff0000;"></div>
+
+                                    <input type="file" name="uploadFile" id="customFile">
+
+                                    <div class="" style="display:inline;">
+
+                                        <input type="hidden" name="redirectAction" value="<?php echo $redirectAction; ?>">
+
+                                        <button type="submit" id="importExcel" class="btn btn-info m-btn m-btn--custom">Submit</button> 
+										<p> </p>
+										<p> </p>
+										
+										<a type="button" href="<?php echo base_url() . 'upload/sampleRfqItemList.xlsx' ?>" class="btn btn-default m-btn m-btn--custom">Download Sample Excel</a>
+										
+										<button type="button" class="btn btn-danger" id="CloseUploadItemModal" data-dismiss="UploadItemsXLModal" aria-label="Close"><span aria-hidden="true">Cancel</span></button>
+										
+										
+
+                                    </div>
+
+                                </div>
+
+                            </form>
+
+                        </div>
 			  
 			  </div>
 				
