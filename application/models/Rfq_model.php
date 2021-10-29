@@ -203,6 +203,7 @@ class Rfq_model extends CI_Model
             // $this->db->join("bid_worksheet bw", "bw.bw_id = bwi.fk_bw_id", "inner");
             // $this->db->join("company_template c", "c.company_id = u.fk_company_id", "inner");
             $this->db->where($where);
+			$this->db->order_by('b.b_id','DESC');
             // print_r($this->db->get_compiled_select());exit;
             $getSupplierList = $this->db->get();
             return $getSupplierList->result_array();
@@ -1209,4 +1210,36 @@ class Rfq_model extends CI_Model
 
         $this->db->update('lead_opportunity', ['job_status' => 'converted']);
     }
+	
+	public function insert_update($tblName='',$insertField, $pw_id = null)
+    {
+
+        //print_r($insertField);
+
+        try {
+
+            if ($pw_id) {
+
+                $this->db->where('bw_id', $pw_id);
+
+                $this->db->update($tblName, $insertField);
+
+                 //print_r($this->db->get_compiled_update());exit;
+
+            } else {
+
+                $id = $this->db->insert($tblName, $insertField);
+
+                 //print_r($this->db->get_compiled_update());exit;
+
+                $insert_id = $this->db->insert_id();
+
+                return $insert_id;
+            }
+        } catch (Exception $e) {
+
+            return false;
+        }
+    } // end : insertCompany
+	
 }

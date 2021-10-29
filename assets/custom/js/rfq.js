@@ -89,16 +89,25 @@ $(document).ready(function() {
                         // var totalrebid = row.totalRebid_id;
                        // console.log(row);
                         var re_bid_btn = "";
+						console.log(row.totalRebid_id);
                         if (row.totalRebid > 0) {
                             var re_bid_id = row.totalRebid_id;
                             // re_bid_btn = '<button type="button" class="btn mr-md-2 mb-md-0 mb-2 btn-warning" data-toggle="modal" data-target="#m_select_modal" style="    margin-top: 7px;"><span class="m-menu__link-badge"><span class="m-menu__link-icon call-form view-bid" data-url="' + window.baseUrl + 'rfq/viewbid/' + re_bid_id[0].b_id + '" data-toggle="modal" data-target="#modal" >View Re-Bid (1)</span></span></button>';
                             for (var i = 0; i < row.totalRebid; i++) {
+								
+								
                                 var indexval = i + 1;
+								
+								var latestBidBtn = 'btn';
+								if(indexval==1)
+								{
+									var latestBidBtn = 'btn-info';
+								}
                                 // console.log(re_bid_id);
                                 // console.log(indexval);
                                 // console.log(re_bid_id[i].b_id);
                                 var bid_id = re_bid_id[i].b_id;
-                                re_bid_btn += '<button type="button" class="btn mr-md-2 mb-md-0 mb-2 btn-info" data-toggle="modal" data-target="#m_select_modal" style="    margin-top: 7px;"><span class="m-menu__link-badge"><span class="m-menu__link-icon call-form view-rebid" data-url="' + window.baseUrl + 'rfq/viewbid/' + bid_id + '" data-toggle="modal" data-target="#modal" >View Re-Bid (' + (indexval) + ')</span></span></button>';
+                                re_bid_btn += '<button type="button" class="btn mr-md-2 mb-md-0 mb-2 '+latestBidBtn+'" data-toggle="modal" data-target="#m_select_modal" style="    margin-top: 7px;"><span class="m-menu__link-badge"><span class="m-menu__link-icon call-form view-rebid" data-url="' + window.baseUrl + 'rfq/viewbid/' + bid_id + '" data-toggle="modal" data-target="#modal" >View Re-Bid (' + (indexval) + ')</span></span></button>';
                             }
 
                         }
@@ -173,7 +182,7 @@ $(document).ready(function() {
 
                         }
                     } else {
-                        return data;
+                        return '<a href="#" class="ChnageRFQstatus" data-url="' + window.baseUrl + 'rf/ChangeRFQstatus/' + row.b_id + '" data-toggle="modal" data-target="#RFQstatusModal" data-id="' + row.b_id + '">' + data + '</a>';
 
                     }
 
@@ -4081,3 +4090,101 @@ function reBidStatus(id, status) {
 // }
 
 //ALTER TABLE `bid` ADD `company_id` VARCHAR(50) NULL AFTER `project_name`;
+
+$(document).on('click', '.ChnageRFQstatus', function(e) {
+    
+    //$('#saveAs').html('Save & New');
+    //$('#item_header').html('Add Item');
+	
+	thisObj = $(this);
+
+    dataId = thisObj.data('id');
+	
+	$('#bw_id').val(dataId);
+
+    $('#RFQstatusModal').modal("show");
+
+    $("#RFQstatusModal").addClass("show");
+
+    $('#RFQstatusModal').show();
+
+});
+
+
+$(document).on('click', '#closeRFQstatusModal', function(e) {
+
+    // $('#addModal').modal("hide");
+
+    $("#RFQstatusModal").removeClass("show");
+
+    // $("#addModal").removeClass("in");
+
+    $('#RFQstatusModal').hide();
+
+    //ajax.ajaxCall(ajax.displayFormActivity);
+
+});
+
+
+$(document).on('click', '#updateRFQStatus1', function(e) {
+
+var form_data = new FormData();
+
+    var rfq_status = $("#rfq_status").val();
+
+    var rfq_remark = $("#rfq_remark").val();
+
+    var bw_id = $("#bw_id").val();
+	
+	
+
+    form_data.append("rfq_status", rfq_status);
+
+    form_data.append("rfq_remark", rfq_remark);
+
+    form_data.append("bw_id", bw_id);
+
+    $.ajax({
+
+        url: "rfq/updateRFQStatus",
+
+        method: "POST",
+
+        data: form_data,
+
+        contentType: false,
+
+        cache: false,
+
+        processData: false,
+
+        // beforeSend: function () {
+
+        //         $('#importExcel').html("Excel Uploading...");
+
+        //         $('#importExcel').prop('disabled',true);
+
+        // },
+
+        success: function(data) {
+
+            console.log(data);
+
+            var newData = JSON.parse(data);
+
+            $('#itemSuccessMessage').html(newData.message);
+
+            $('#itemSuccessMessageUpdate').html(newData.message);
+         
+				$("#rfq_status").val('');
+                $("#rfq_remark").val('');
+				
+				$("#bw_id").val('');
+
+				window.location.reload();
+
+        }
+
+    });
+
+});

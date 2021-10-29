@@ -244,6 +244,113 @@
 </div>
 
 
+<!-- Code added by arvind //-->
+<div class="modal fade" id="RFQstatusModal" role="dialog" aria-labelledby="" aria-hidden="true" style="display: none;">
+
+        <div class="modal-dialog modal-lg" role="document" style="margin-top: 0px;max-width: 1100px !important;">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="item_header">
+
+                        Update RFQ Status
+
+                    </h5>
+
+                    <button type="button" class="close" id="closeRFQstatusModal" data-dismiss="RFQstatusModal" aria-label="Close">
+
+                        <span aria-hidden="true" class="la la-remove"></span>
+
+                    </button>
+
+                </div>
+
+                <div id="validation_errors_rfq_worksheet"></div>
+
+                <form method="post" id="" class="m-form m-form--fit m-form--label-align-right">
+
+                    <div id="replaceItemForm">
+
+                        <div class="modal-body">
+                            <div id="validation_errors"></div>
+
+                            <div class="form-group m-form__group row m--margin-top-20">
+
+                                <div class="col-lg-3 col-md-3 col-sm-12">
+
+                                    <label for="company_name">RFQ Status</label>
+
+                                    <select name="rfq_status" id="rfq_status" class="form-control">
+                                        <option value="Drafted">Drafted</option>
+                                        <option value="Open">Open</option>
+                                        <option value="Approved">Approved</option>
+                                        <option value="Rejected">Rejected</option>
+                                        <option value="Close">Close</option>
+                                        
+                                    </select>
+									<!--<option value="Re Bid">Re Bid</option>-->
+
+                                    <span id="rfq_status_alert" style="color:red"></span>
+
+                                </div>
+
+                                
+
+                                <div class="col-lg-6 col-md-6 col-sm-12">
+
+                                    <label for="company_name">Remark</label>
+
+                                    <div class="input-group m-input-group m-input-group--square">
+
+                                        <textarea class="form-control m-input" placeholder="Remark" id="rfq_remark" value="" name="rfq_remark" aria-describedby="basic-addon1" rows="10" cols="10"></textarea>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <hr />
+
+<input type="hidden" name="bw_id" id="bw_id" value="">
+							
+                           
+
+                            <div class="form-group m-form__group row m--margin-top-20">
+
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+
+                                    <div id="company_type"></div>
+
+                                    <!-- <button type="submit" data-type="save" id="save" class="btn btn-success m-btn" style="font-family: sans-serif, Arial;">Save</button> -->
+
+                                    <button type="button" data-type="save_n_close" class="btn btn-primary m-btn" id="updateRFQStatus1" style="font-family: sans-serif, Arial;">Update</button>
+
+                                    <span id="itemSuccessMessage" style="color: green;margin-left: 20px;"></span>
+
+                                    <!-- <button type="button" class="btn btn-brand m-btn" style="font-family: sans-serif, Arial;" onclick="location.reload();">Close</button> -->
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
 <script>
 window.moduleType = "<?php echo "rfq"; ?>";
 window.moduleTabs = <?php echo json_encode($tabs); ?>;

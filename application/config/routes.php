@@ -173,6 +173,8 @@ $route['rf/form'] = 'rfq/displayForm';
 $route['rf/form/(:any)'] = 'rfq/displayForm/$1';
 $route['rf/form/(:any)/(:num)'] = 'rfq/displayForm/$1/$2';
 $route['rfq/create/worksheet'] = 'rfq/addWorksheet';
+
+$route['rfq/updateRFQStatus'] = 'rfq/updateRFQStatus';
 $route['rf/getItem'] = 'rfq/getItem';
 $route['rfq/Format/add'] = 'rfq/addFormat';
 $route['rfq/table/getItemList'] = 'rfq/getItemList';

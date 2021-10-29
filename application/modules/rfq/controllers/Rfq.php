@@ -1241,7 +1241,6 @@ class Rfq extends CI_Controller
 
 	public function addWorksheet()
 	{
-
 		$post = $this->input->post();
 
 		try {
@@ -4474,4 +4473,97 @@ class Rfq extends CI_Controller
 
 		echo json_encode($json);
 	}
+	
+	
+	public function updateRFQStatus()
+	{
+		$post = $this->input->post();
+
+		try {
+
+			$post['photo'] = '';
+			$error ='';
+
+
+			$this->load->library('form_validation');
+
+			$this->form_validation->set_rules('bw_id', 'bw_id', 'required');
+
+			if ($this->form_validation->run() == FALSE) {
+
+				$response['error'] = "<div class='alert-danger-2'>
+
+	                    <strong>Alert !</strong><br/><br/>" .
+
+					validation_errors() .
+
+					"</div>";
+			} else {
+
+				
+
+				$pw_id = $post['bw_id'];
+				
+				$UpdateStatusArray = array(
+					'status' => $post['rfq_status']
+				);
+				
+				//print_r($_SESSION['user_id']);die();
+				
+				$LogArray = array(
+					'bid_id' => $pw_id,
+					'remarks' => $post['rfq_remark'],
+					'status' => $post['rfq_status'],
+					'created_date' => date('Y-m-d h:s:i'),
+					'created_by' => $_SESSION['user_id']
+				);
+
+
+				if (isset($post['bw_id']) && $post['bw_id'] != '') {
+
+					$data['id'] = $this->rfqModel->setStatus($UpdateStatusArray, $pw_id);
+					
+					$this->rfqModel->insert_update('rfq_status_log',$LogArray);
+
+					$response['message'] = "RFQ Item Updated Successfully.";
+
+					$response['saveNew'] = "";
+				} else {
+
+					//$pw_id = $data['id'] = $this->rfqModel->insert_update($post);
+
+					//$response['message'] = "RFQ Items Added Successfully.";
+
+					//$response['saveNew'] = "saveNew";
+				}
+
+
+
+				//$this->session->set_userdata('setMessage','Added');
+
+				if($error)
+				{
+					$response['code'] = 505;
+
+					$response['message'] = $error;
+				}
+				else
+				{
+					$response['code'] = 200;
+
+					$response['data'] = $data['id'];
+				}
+				
+			}
+		} catch (Exception $e) {
+
+			$response['code'] = 505;
+
+			$response['message'] = 'exception in insertion';
+
+			$response['data'] = array();
+		}
+
+		echo json_encode($response);
+	} // end : getCompanyIdentifier Action
 }
