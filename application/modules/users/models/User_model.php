@@ -2165,6 +2165,57 @@ public function insert_data($tblName,$insertFeild) {
 
     }
 
+    ////////////// start code by arvind on 11-11-2021 ///////////////////////////
+
+    public function getpmUsers() {
+
+        // $UserData = array();
+
+        // print_r($where); die;
+        $pmdb = $this->load->database('pmdb',true);
+
+        try {
+
+            $pmdb->select('*');            
+
+            $pmdb->from('tasks_comments  u');
+
+           $UserData = $pmdb->get();
+
+            return $UserData->result_array();
+
+        } catch(Exception $e) {
+
+            return $UserData ;
+
+        }
+
+    } // end : getUSer
+
+    public function PM_insertUser($insertFeild) {
+
+        $pmdb = $this->load->database('pmdb',true);
+
+        try { 
+
+            $id = $pmdb->insert($this->tableName,$insertFeild);
+
+            $id = $pmdb->insert_id();
+
+            //echo $this->db->last_query();die;
+
+            return $id;
+
+        } catch(Exception $e) {
+
+            return false;
+
+        }
+
+    } // end : insertUser
+
+    ////////////// End code by arvind on 11-11-2021 ///////////////////////////
+
 
 
 }

@@ -809,13 +809,17 @@ var table = {
 
                 // {data:'pw_id',title: 'Sr No.'},
 
-                { data: 'job_id', title: '<input name="select_all" type="checkbox" id="ckbCheckAll">' },
+                { data: 'id', title: '<input name="select_all" type="checkbox" id="ckbCheckAll">' },
 
-                { data: 'job_name', title: 'Job Name' },
+                { data: 'status', title: 'Status' },
 
-                { data: 'converted_by', title: 'Converted By' },
+                { data: 'project_name', title: 'Project Name' },
 
-                { data: 'converted_date', title: 'Converted Date' }
+                { data: 'type', title: 'Type' },
+
+                { data: 'created_by', title: 'Created By' },
+
+                { data: 'created_at', title: 'Created At' }
 
             ],
 

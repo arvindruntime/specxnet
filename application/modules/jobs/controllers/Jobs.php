@@ -127,8 +127,13 @@ class Jobs extends CI_Controller {
 		$page['module_name'] = $module_name;
 
 		$page['contain'] = 'jobList';
+		
+		$page['projects_types'] = $this->jobModel->get_data('projects_types');
+		$page['projects_status'] = $this->jobModel->get_data('projects_status');
 
 		$page['access'] = $this->session->userdata('adminAccess');
+		
+
 
 
 		$page['showOpportunity'] = $this->permission->checkUserPermission(17);
@@ -219,33 +224,36 @@ class Jobs extends CI_Controller {
 
 		//print_r($post);exit;
 
-		$select = 'lo.opportunity_title as job_name, u.full_name as converted_by, j.created_date as converted_date, j.job_id, u2.full_name as customer_contact';
+		//$select = 'lo.opportunity_title as job_name, u.full_name as converted_by, j.created_date as converted_date, j.job_id, u2.full_name as customer_contact';
+		
+		$select = 'u.full_name as created_by, p.id, p.name as project_name, p.created_at, t.name as type, s.name as status';
+		$where = array();
 
 		if(isset($post[0]) && is_numeric($post[0])) {
 
 			
 
-			$where = array('lo.job_status' => 'converted', 'lo.fk_sales_people_id' => $post[0]);
+			//$where = array('lo.job_status' => 'converted', 'lo.fk_sales_people_id' => $post[0]);
 
 		} else {
 
-			$where = array('lo.job_status' => 'converted');
+			//$where = array('lo.job_status' => 'converted');
 
 		}
 
-		$jobList = $this->jobModel->getJobs($select,$where);
+		$jobList = $this->jobModel->getProjects($select,$where);
 
 
 
 		foreach ($jobList as $key => $value) {
 
-			$jobList[$key]['converted_date'] = date("d-M-Y h:m A", strtotime($jobList[$key]['converted_date']));
+			//$jobList[$key]['created_at'] = date("d-M-Y h:m A", strtotime($jobList[$key]['created_at']));
 
 		}
 
 
 
-		$jobCount = $this->jobModel->getJobs('j.job_id',$where);
+		$jobCount = $this->jobModel->getProjects('p.id',$where);
 
 		// print_r(count($companycount)); die;
 
@@ -255,11 +263,77 @@ class Jobs extends CI_Controller {
 
 		$data['data'] = $jobList;
 
-		// print_r($data['data']); die;
+		//print_r($data['data']); die;
 
 		echo json_encode($data);
 
 	} // end : getLeads Action ,2
+	
+	public function addProjectAction()
+	{
+		
+		
+		$post = $this->input->post();
+
+		try {
+
+			$this->load->library('form_validation');
+
+			$this->form_validation->set_rules('projects_types_id', 'Projects type', 'required');
+
+			if ($this->form_validation->run() == FALSE) {
+
+				$response['error'] = "<div class='alert-danger-2'>
+
+	                    <strong>Alert !</strong><br/><br/>" .
+
+					validation_errors() .
+
+					"</div>";
+			} else {
+
+				if (isset($post['bw_id']) && $post['bw_id'] != '') { 
+
+					$data['id'] = $this->jobModel->insertData($post, $pw_id);
+
+					$response['message'] = "Project Updated Successfully.";
+
+					$response['saveNew'] = "";
+				} else {
+						$post['created_by'] = $this->session->userdata('user_id');
+						$post['created_at'] = date('Y-m-d h:s:i');						
+					$pw_id = $data['id'] = $this->jobModel->insertData($post);
+
+					$response['message'] = "Project Added Successfully.";
+
+					$response['saveNew'] = "saveNew";
+				}
+
+				if($error)
+				{
+					$response['code'] = 505;
+
+					$response['message'] = $error;
+				}
+				else
+				{
+					$response['code'] = 200;
+
+					$response['data'] = $data['id'];
+				}
+				
+			}
+		} catch (Exception $e) {
+
+			$response['code'] = 505;
+
+			$response['message'] = 'exception in insertion';
+
+			$response['data'] = array();
+		}
+
+		echo json_encode($response);
+	} // end : getCompanyIdentifier Action
 
 
 

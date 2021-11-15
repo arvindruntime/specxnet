@@ -159,7 +159,7 @@
                                                             echo 'active show';
                                                         } ?>" href="<?php echo base_url(); ?>jobs">
 
-                Jobs
+                Projects
 
             </a>
 

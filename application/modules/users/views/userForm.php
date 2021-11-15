@@ -62,7 +62,7 @@
 
                             <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_portlet_base_demo_14_tab_content" onclick="getJobList(<?php echo isset($value['user_id'])?$value['user_id']:''; ?>)" role="tab" aria-selected="false">
 
-                            Job Access
+                            Projects
 
                             </a>
 

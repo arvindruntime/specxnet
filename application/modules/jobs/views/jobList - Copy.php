@@ -334,12 +334,8 @@ begin:: Page -->
                                 <div class="col-lg-3 col-md-3 col-sm-12">
 
                                     <label for="company_name"><span style="color:red;">* </span>Type</label>
-									
-									<select name="projects_types_id" id="projects_types_id" class="form-control m-input" required="">
-									<?php foreach($projects_types as $k=>$v){?>
-									<option value='<?php echo $v['id'];?>'><?php echo $v['name'];?></option>
-									<?php } ?>
-									</select>
+
+                                    <input type="text" name="projects_types_id" id="projects_types_id" class="form-control m-input" value="" placeholder="Type" required="">
 
                                 </div>
 								
@@ -347,19 +343,15 @@ begin:: Page -->
 
                                     <label for="company_name"><span style="color:red;">* </span>Status</label>
 
-									<select name="projects_status_id" id="projects_status_id" class="form-control m-input" required="">
-									<?php foreach($projects_status as $k=>$v){?>
-									<option value='<?php echo $v['id'];?>'><?php echo $v['name'];?></option>
-									<?php } ?>
-									</select>
+                                    <input type="text" name="projects_types_id" id="projects_types_id" class="form-control m-input" value="" placeholder="Status" required="">
 
                                 </div>
 								
 								<div class="col-lg-3 col-md-3 col-sm-12">
 
-                                    <label for="projects_name"><span style="color:red;">* </span>Name</label>
+                                    <label for="company_name"><span style="color:red;">* </span>Name</label>
 
-                                    <input type="text" name="projects_name" id="projects_name" class="form-control m-input" value="" placeholder="Name" required="">
+                                    <input type="text" name="projects_types_id" id="projects_types_id" class="form-control m-input" value="" placeholder="Name" required="">
 
                                 </div>
 								

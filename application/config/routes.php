@@ -269,6 +269,8 @@ $route['role/create/roleAdd'] = 'role/createRole';
 
 $route['job/get/jobs'] = 'jobs/getJob';
 
+//$route['job/get/jobs'] = 'jobs/addProjectAction';
+
 
 $route['dropdown'] = 'dropdowns/index';
 $route['dropdown/form'] = 'dropdowns/displayForm';

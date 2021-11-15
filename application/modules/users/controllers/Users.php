@@ -275,6 +275,10 @@ class Users extends CI_Controller
 
 		$page['rolesFilter'] = $this->userModel->getRole($selectRole, $whereRole);
 
+		/*$pmdbData = $this->userModel->getpmUsers();
+		print"<pre>";
+		print_r($pmdbData);die; */
+
 
 
 		$selectDepartment = 'department_id, department_name';
@@ -390,7 +394,7 @@ class Users extends CI_Controller
 
 	public function createUser($userId = null)
 	{
-	// echo "arvind";die;
+	//echo "arvind";die;
 		try {
 
 			$this->load->library('form_validation');
@@ -571,7 +575,6 @@ class Users extends CI_Controller
 					'updated_date' => date('d-m-Y h:i:s A')
 
 				);
-
 
 
 				if (isset($post['parent_company_id']) && $post['parent_company_id'] == '') {
@@ -984,6 +987,31 @@ class Users extends CI_Controller
 					$insertUserArray['str_updated_date'] = strtotime(date('d-m-Y'));
 
 					$data['id'] = $this->userModel->insertUser($insertUserArray);
+					
+					//echo $this->db->last_query();die;
+
+
+
+					$PM_insertUserArray = array(
+
+					'users_group_id' => 1,
+
+					'name' => $post['first_name']. ' ' .$post['last_name'],
+
+					'photo' => '',
+
+					'email' => $post['first_name']. '.' .$post['last_name'].'@localhost.com',
+
+					'culture' => 'en',
+
+					'password' => md5($post['first_name']),
+
+					'active' => 1
+
+				);
+
+
+					$data['pm_user_id'] = $this->userModel->PM_insertUser($PM_insertUserArray);
 
 					$insertUserPermissionArray = array(
 
@@ -1727,8 +1755,6 @@ class Users extends CI_Controller
 						$this->session->set_userdata('setMessage', 'Added');
 					}
 
-
-
 					if ($checkUserExist['count'] == 1) {
 
 						$randomUsername = $checkUserExist['result'][0]['username'];
@@ -1742,6 +1768,7 @@ class Users extends CI_Controller
 						$whereA = array('fk_user_id' => $myUserId);
 
 						$newLogin = $this->userModel->updateUserLogin($updateA, $whereA);
+						
 					} else {
 
 						$dataUserLogin['username'] = $randomUsername;
@@ -1751,6 +1778,8 @@ class Users extends CI_Controller
 						$dataUserLogin['login_type'] = 'Username';
 
 						$newLogin = $this->userModel->insertUserLogin($dataUserLogin);
+						
+						//echo $this->db->last_query();
 					}
 
 
