@@ -196,6 +196,8 @@ class Users extends CI_Controller
 
 			$page['tabs'] = $this->user->getTabs2();
 		}
+		//print "<pre>";
+		//print_r($page['tabs']);die;
 
 		// Bimal Sharma
 
@@ -367,10 +369,7 @@ class Users extends CI_Controller
 		$page['deletePermission'] = $this->permission->checkUserPermission(12);
 
 		$page['sendEmailPermission'] = $this->permission->checkUserPermission(16);
-
-
-		// echo "<pre>";
-		// print_r($page);die;
+		
 		$this->page->getLayout($page);
 
 		//$this->load->view('layout/head');
@@ -691,8 +690,8 @@ class Users extends CI_Controller
 
 					$insertUserArray['full_name'] = $full_name;
 				}
-
-
+				
+				$PMuserName = $full_name;
 
 				$full_name = $post['first_name'] . " " . $post['last_name'];
 
@@ -977,6 +976,11 @@ class Users extends CI_Controller
 				}
 
 				//----------------------End------------------------------------------
+				
+				$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+				$password = substr(str_shuffle($chars), 0, 8);
+				$pass = md5($password);
 
 
 
@@ -990,28 +994,7 @@ class Users extends CI_Controller
 					
 					//echo $this->db->last_query();die;
 
-
-
-					$PM_insertUserArray = array(
-
-					'users_group_id' => 1,
-
-					'name' => $post['first_name']. ' ' .$post['last_name'],
-
-					'photo' => '',
-
-					'email' => $post['first_name']. '.' .$post['last_name'].'@localhost.com',
-
-					'culture' => 'en',
-
-					'password' => md5($post['first_name']),
-
-					'active' => 1
-
-				);
-
-
-					$data['pm_user_id'] = $this->userModel->PM_insertUser($PM_insertUserArray);
+					
 
 					$insertUserPermissionArray = array(
 
@@ -1063,9 +1046,8 @@ class Users extends CI_Controller
 							$insertUserPermissionArray['can_view_company'] = json_encode($post['companyAdded']);
 						}
 
-
-
 						$rpn_id = $this->userModel->insertUserpermissions($insertUserPermissionArray);
+						
 
 						// $updateRpnArray = array(
 
@@ -1700,6 +1682,7 @@ class Users extends CI_Controller
 				//print_r($emailList);exit;
 
 				if (isset($post['invite_user']) && $post['invite_user'] == 'on') {
+					
 
 					$send_email = 'yes';
 
@@ -1724,12 +1707,7 @@ class Users extends CI_Controller
 
 					$randomUsername = $this->getUsername($userFname, $userLname, $emailUserName);
 
-					$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
-					$password = substr(str_shuffle($chars), 0, 8);
-					$pass = md5($password);
-
-
+					
 
 					if ($userId) {
 
@@ -1779,8 +1757,66 @@ class Users extends CI_Controller
 
 						$newLogin = $this->userModel->insertUserLogin($dataUserLogin);
 						
-						//echo $this->db->last_query();
+						//echo $this->db->last_query();die;
 					}
+					
+					
+					///////////////////////////////////////////////////////////
+					
+					$userStatus = '0';
+					if($post['active_user']=="active"){ $userStatus = '1'; }
+					
+					$user_role_id = 5;
+					if($post['user_role_id']==1) //Manager
+					{
+						$user_role_id = 4;
+					}elseif($post['user_role_id']==3) // Client
+					{
+						$user_role_id = 3;
+					}
+					elseif($post['user_role_id']==181) // Customer
+					{
+						$user_role_id = 9;
+					}
+					elseif($post['user_role_id']==182) // Supplier
+					{
+						$user_role_id = 5;
+					}
+					elseif($post['user_role_id']==186) // Administrator
+					{
+						$user_role_id = 1;
+					}
+					elseif($post['user_role_id']==189) // Coordinator
+					{
+						$user_role_id = 8;
+					}
+					elseif($post['user_role_id']==194) // Developer
+					{
+						$user_role_id = 2;
+					}
+					//////////////////////////////////////////////////////
+					
+					$PM_insertUserArray = array(
+
+					'users_group_id' => $user_role_id,
+
+					'name' => $full_name,
+
+					'photo' => '',
+
+					'email' => $randomUsername,
+
+					'culture' => 'en',
+
+					'password' => $pass,
+
+					'active' => $userStatus
+
+				);
+
+				$data['pm_user_id'] = $this->userModel->PM_insertUser($PM_insertUserArray);
+					
+					////////////////////////////////////////////////////////////
 
 
 					//====================Email Code=======================================================================

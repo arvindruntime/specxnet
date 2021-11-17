@@ -300,7 +300,7 @@ begin:: Page -->
 
 <div class="modal fade" id="AddProjectModal" role="dialog" aria-labelledby="" aria-hidden="true" style="display: none;">
 
-        <div class="modal-dialog modal-lg" role="document" style="margin-top: 0px;max-width: 1100px !important;">
+        <div class="modal-dialog modal-lg" role="document" style="margin-top: 0px;max-width: 800px !important;">
 
             <div class="modal-content">
 
@@ -321,80 +321,156 @@ begin:: Page -->
                 </div>
 
                 <div id="validation_errors_rfq_worksheet"></div>
+				
+				
+			<div class="m-portlet m-portlet--tabs">
+				
+				<div class="m-portlet__head">
 
-                <form enctype="multipart/form-data" method="post" class="m-form m-form--fit m-form--label-align-right">
+                <div class="m-portlet__head-tools">
 
+                    <ul class="nav nav-tabs m-tabs-line m-tabs-line-left" role="tablist">
+
+                        <li class="nav-item m-tabs__item">
+
+                            <a class="nav-link m-tabs__link active show" data-toggle="tab" href="#m_portlet_base_demo_11_tab_content" role="tab" aria-selected="true">
+
+                            General 
+
+                            </a>
+
+                        </li>
+
+                        <?php
+
+                        //if ($userType == 'internal') {
+
+                        ?>
+
+                        <li class="nav-item m-tabs__item">
+
+                            <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_portlet_base_demo_12_tab_content"  role="tab" aria-selected="false">
+
+                            Team
+
+                            </a>
+
+                        </li>
+
+                        <li class="nav-item m-tabs__item">
+
+                            <a class="nav-link m-tabs__link" data-toggle="tab" href="#m_portlet_base_demo_13_tab_content"  role="tab" aria-selected="false">
+
+                            Attachment
+
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+			
+			
+			<div class="tab-content">
+				<form enctype="multipart/form-data" method="post" class="m-form m-form--fit m-form--label-align-right">
+				<div class="tab-pane active show" id="m_portlet_base_demo_11_tab_content" role="tabpanel">
+                			
                     <div id="replaceItemForm">
 
                         <div class="modal-body">
                             <div id="validation_errors_worksheet"></div>
 
                             <div class="form-group m-form__group row m--margin-top-20">
-
-                                <div class="col-lg-3 col-md-3 col-sm-12">
-
+								<div class="col-lg-3 col-md-3 col-sm-3">
                                     <label for="company_name"><span style="color:red;">* </span>Type</label>
-									
+								</div>
+								
+                                <div class="col-lg-6 col-md-6 col-sm-6">									
 									<select name="projects_types_id" id="projects_types_id" class="form-control m-input" required="">
 									<?php foreach($projects_types as $k=>$v){?>
 									<option value='<?php echo $v['id'];?>'><?php echo $v['name'];?></option>
 									<?php } ?>
 									</select>
-
                                 </div>
 								
-								<div class="col-lg-3 col-md-3 col-sm-12">
-
-                                    <label for="company_name"><span style="color:red;">* </span>Status</label>
-
+							</div>
+							
+							<div class="form-group m-form__group row m--margin-top-20">
+							
+							<div class="col-lg-3 col-md-3 col-sm-3">
+                                <label for="company_name"><span style="color:red;">* </span>Status</label>
+							</div>
+								
+								<div class="col-lg-6 col-md-6 col-sm-6">
 									<select name="projects_status_id" id="projects_status_id" class="form-control m-input" required="">
 									<?php foreach($projects_status as $k=>$v){?>
 									<option value='<?php echo $v['id'];?>'><?php echo $v['name'];?></option>
 									<?php } ?>
 									</select>
-
                                 </div>
+							</div>
+						
+						<div class="form-group m-form__group row m--margin-top-20">
+							<div class="col-lg-3 col-md-3 col-sm-3">
+								<label for="company_name"><span style="color:red;">* </span>Name</label>
+							</div>
 								
-								<div class="col-lg-3 col-md-3 col-sm-12">
-
-                                    <label for="projects_name"><span style="color:red;">* </span>Name</label>
+								<div class="col-lg-6 col-md-6 col-sm-6">
 
                                     <input type="text" name="projects_name" id="projects_name" class="form-control m-input" value="" placeholder="Name" required="">
 
                                 </div>
+						</div>
+						
+						<div class="form-group m-form__group row m--margin-top-20">
+						
+							<div class="col-lg-3 col-md-3 col-sm-3">
+                                <label for="company_name"><span style="color:red;">* </span>Live Url</label>
+							</div>
 								
-								<div class="col-lg-3 col-md-3 col-sm-12">
-
-                                    <label for="company_name"><span style="color:red;">* </span>Live Url</label>
+								<div class="col-lg-6 col-md-6 col-sm-6">
 
                                     <input type="text" name="projects_types_id" id="projects_types_id" class="form-control m-input" value="" placeholder="Live Url" required="">
 
                                 </div>
 								
-                            </div>
+                        </div>
 
 
                             <div class="form-group m-form__group row m--margin-top-20">
+							
+								<div class="col-lg-3 col-md-3 col-sm-3">
+									<label for="company_name"><span style="color:red;">* </span>Test Url</label>
+								</div>
 
                                 <div class="col-lg-3 col-md-3 col-sm-12">
-
-                                    <label for="company_name"> Test Url</label>
 
                                     <input type="text" name="quantity" id="add_quantity" value="" class="form-control m-input" placeholder="Test Url">
 
                                     <span id="quantity_alert" style="color:red"></span>
 
                                 </div>
+							</div>
+							
+							<div class="form-group m-form__group row m--margin-top-20">
+							
+							<div class="col-lg-3 col-md-3 col-sm-3">
+								<label for="company_name"><span style="color:red;">* </span>Review Brief</label>
+							</div>
 
                                 <div class="col-lg-3 col-md-3 col-sm-12">
-
-                                    <label for="company_name">Review Brief</label>
 
                                     <input type="text" name="fabric_quantity" id="add_fabric_quantity" value="" class="form-control m-input" placeholder="Review Brief">
 
                                     <span id="add_fabric_quantity_alert" style="color:red"></span>
 
                                 </div>
+							</div>
+							
+						<div class="form-group m-form__group row m--margin-top-20">
 
                                 <div class="col-lg-3 col-md-3 col-sm-12">
 
@@ -490,7 +566,26 @@ begin:: Page -->
 
                     </div>
 
-                </form>
+                
+				</div>
+				
+				
+				
+				<!------------------------------------------------->
+					<div class="tab-pane" id="m_portlet_base_demo_12_tab_content" role="tabpanel">
+					Team
+					</div>
+				<!-------------------------------------------------->
+				
+				<!------------------------------------------------->
+					<div class="tab-pane" id="m_portlet_base_demo_13_tab_content" role="tabpanel">
+					Attachment
+					</div>
+				<!-------------------------------------------------->
+				
+			</div>
+			</form>
+		</div>
 
 
 

@@ -53,8 +53,7 @@
                         </li>
 
                         <?php //}
-
-                            if ($userType != 'customer') {
+                            if ($userType != 'customer') { 
 
                         ?>
 

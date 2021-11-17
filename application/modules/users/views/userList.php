@@ -49,8 +49,12 @@
                         <button class="btn green m-btn m-btn--custom new-btn2 m-menu__link-icon call-form" data-url="<?php echo isset($valueChildren['modelUrl'])?base_url().$valueChildren['modelUrl']:''; ?>" data-toggle="modal" data-target="<?php echo $valueChildren['isModel']?>">
                             New
                         </button>
+						
+						
                       </div>
-                <?php }}} ?>
+                <?php }}} 
+				
+				?>
           </div> 
           <?php echo $this->page->getPage('layout/body/body_action'); ?>
         </div>
